@@ -1,0 +1,6 @@
+coverage/
+lib/
+node_modules/
+npm-debug.log
+todo.tasks
+yarn-error.log

@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "EditorConfig.EditorConfig",
+    "esbenp.prettier-vscode",
+    "eg2.tslint",
+    "wallabyjs.wallaby-vscode"
+  ]
+}

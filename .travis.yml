@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - '10'
+cache: yarn
+script:
+  - yarn commitlint-travis
+  - yarn clean
+  - yarn test
+  - git diff --exit-code yarn.lock
