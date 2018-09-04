@@ -1,4 +1,5 @@
 coverage/
+lerna-debug.log
 lib/
 node_modules/
 npm-debug.log

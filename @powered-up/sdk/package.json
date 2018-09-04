@@ -1,0 +1,37 @@
+{
+  "name": "@powered-up/sdk",
+  "version": "0.0.0",
+  "description": "A Node.js SDK for controlling the new LEGO® Powered Up platform.",
+  "license": "MIT",
+  "author": "Clemens Akens <clebert@me.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clebert/powered-up.git"
+  },
+  "bugs": {
+    "url": "https://github.com/clebert/powered-up/issues"
+  },
+  "files": [
+    "lib/",
+    "typings/"
+  ],
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/debug": "^0.0.30"
+  },
+  "dependencies": {
+    "@powered-up/protocol": "0.0.0",
+    "debug": "^4.0.1",
+    "mobx": "^5.1.1",
+    "noble": "^1.9.1",
+    "tsdi": "^0.20.3",
+    "xpc-connection": "sandeepmistry/node-xpc-connection#pull/26/head"
+  },
+  "resolutions": {
+    "xpc-connection": "sandeepmistry/node-xpc-connection#pull/26/head"
+  }
+}

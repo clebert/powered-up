@@ -1,6 +1,6 @@
 module.exports = () => ({
-  files: ['src/**/*.ts', '!src/**/*.test.ts'],
-  tests: ['src/**/*.test.ts'],
+  files: ['@powered-up/*/src/**/*.ts', '!@powered-up/*/src/**/*.test.ts'],
+  tests: ['@powered-up/*/src/**/*.test.ts'],
   env: {type: 'node', runner: 'node'},
   testFramework: 'jest'
 });

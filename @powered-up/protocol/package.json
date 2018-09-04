@@ -1,0 +1,22 @@
+{
+  "name": "@powered-up/protocol",
+  "version": "0.0.0",
+  "description": "A partial implementation of the Powered Up Bluetooth protocol in JavaScript.",
+  "license": "MIT",
+  "author": "Clemens Akens <clebert@me.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clebert/powered-up.git"
+  },
+  "bugs": {
+    "url": "https://github.com/clebert/powered-up/issues"
+  },
+  "files": [
+    "lib/"
+  ],
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  }
+}

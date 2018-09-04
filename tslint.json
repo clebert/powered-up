@@ -1,4 +1,7 @@
 {
   "extends": "ts-config",
-  "linterOptions": {"exclude": ["**/lib/**", "**/node_modules/**"]}
+  "linterOptions": {"exclude": ["**/lib/**", "**/node_modules/**"]},
+  "rules": {
+    "prefer-function-over-method": false
+  }
 }

@@ -1,25 +1,26 @@
-# lego-boost
+# Powered Up Node.js SDK
 
-[![Build Status](https://travis-ci.org/clebert/lego-boost.svg?branch=master)](https://travis-ci.org/clebert/lego-boost)
-[![Package Version](https://img.shields.io/npm/v/lego-boost.svg)](https://yarnpkg.com/en/package/lego-boost)
+> A Node.js SDK for controlling the new LEGO® Powered Up platform.
 
-> TODO.
+_Disclaimer: LEGO® is a trademark of the LEGO Group of companies which does not
+sponsor, authorize or endorse this software._
 
 ## Getting started
 
-Install `lego-boost` as a dependency:
+This software is still in an early stage of development. The individual packages
+are not yet released on NPM. Examples and documentation will be available soon.
 
-```sh
-# Install using Yarn
-yarn add lego-boost
-```
+## Packages
 
-```sh
-# or install using npm
-npm install lego-boost
-```
+### [@powered-up/sdk](https://github.com/clebert/autosrc/tree/master/@powered-up/sdk)
+
+A Node.js SDK for controlling the new LEGO® Powered Up platform.
+
+### [@powered-up/protocol](https://github.com/clebert/autosrc/tree/master/@powered-up/protocol)
+
+A partial implementation of the Powered Up Bluetooth protocol in JavaScript.
 
 ---
 
 Copyright (c) 2018-present, Clemens Akens. Released under the terms of the
-[MIT License](https://github.com/clebert/lego-boost/blob/master/LICENSE).
+[MIT License](https://github.com/clebert/powered-up/blob/master/LICENSE).
