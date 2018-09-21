@@ -1,13 +1,14 @@
 import {Input, Output, parseInput} from '@powered-up/protocol';
 import {action, autorun, computed, observable} from 'mobx';
 import {Characteristic, Peripheral, Service} from 'noble';
-import {Bluetooth} from './bluetooth';
+import {BLEManager} from './ble-manager';
 import {debug} from './debug';
 
-const bluetoothCharacteristicUuid = '000016241212efde1623785feabcd123';
+const bleCharacteristicUuid = '000016241212efde1623785feabcd123';
 
-export class Device {
-  public readonly id: string;
+export class HubConnection {
+  public readonly hubId: string;
+  public readonly hubType: number;
 
   @observable
   public latestError?: Error;
@@ -21,30 +22,30 @@ export class Device {
   @observable
   private connected = false;
 
-  public constructor(
-    private readonly bluetooth: Bluetooth,
-    private readonly peripheral: Peripheral
-  ) {
-    this.id = peripheral.id;
+  public constructor(bleManager: BLEManager, peripheral: Peripheral) {
+    this.hubId = peripheral.id;
+    this.hubType = peripheral.advertisement.manufacturerData.readUInt8(3);
 
     const {localName} = peripheral.advertisement;
 
-    this.debug('LEGO device discovered:', JSON.stringify(localName));
+    this.debug('Hub discovered:', JSON.stringify(localName));
 
     peripheral.on('connect', this.handleConnect.bind(this));
     peripheral.on('disconnect', this.handleDisconnect.bind(this));
 
     autorun(() => {
-      if (!this.bluetooth.ready) {
+      if (!bleManager.ready) {
+        this.handleDisconnect(null);
+
         return;
       }
 
       if (!this.connected) {
-        this.peripheral.connect();
+        peripheral.connect();
       } else {
-        this.peripheral.discoverSomeServicesAndCharacteristics(
+        peripheral.discoverSomeServicesAndCharacteristics(
           [],
-          [bluetoothCharacteristicUuid],
+          [bleCharacteristicUuid],
           this.handleDiscovery.bind(this)
         );
       }
@@ -74,7 +75,7 @@ export class Device {
   }
 
   private debug(...args: unknown[]): void {
-    debug(this.constructor.name, this.id, ...args);
+    debug(`${this.hubId}:${this.hubType}`, ...args);
   }
 
   @action
@@ -110,7 +111,9 @@ export class Device {
 
   @action
   private handleDisconnect(error: Error | null): void {
-    this.connected = false;
+    if (error) {
+      this.latestError = error;
+    }
 
     if (this.characteristic) {
       this.characteristic.removeAllListeners('data');
@@ -118,8 +121,8 @@ export class Device {
       this.characteristic = undefined;
     }
 
-    if (error) {
-      this.latestError = error;
+    if (this.connected) {
+      this.connected = false;
     }
   }
 }

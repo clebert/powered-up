@@ -14,11 +14,15 @@ are not yet released on NPM. Examples and documentation will be available soon.
 
 ### [@powered-up/ble](https://github.com/clebert/powered-up/tree/master/@powered-up/ble)
 
-A reactive device manager for locating and managing LEGO® Bluetooth LE devices.
+A reactive library for managing
+[BLE](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy) connections to LEGO®
+Powered Up hubs.
 
 ### [@powered-up/protocol](https://github.com/clebert/powered-up/tree/master/@powered-up/protocol)
 
-A partial implementation of the Powered Up Bluetooth protocol in JavaScript.
+A partial implementation of the LEGO® Powered Up
+[BLE](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy) protocol in
+JavaScript.
 
 ---
 
