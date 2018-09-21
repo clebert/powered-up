@@ -1,12 +1,9 @@
 import {IObservableArray, action, computed, observable} from 'mobx';
 import noble, {Peripheral} from 'noble';
-import {component} from 'tsdi';
 
-@component
 export class Bluetooth {
   @observable.shallow
-  // tslint:disable-next-line:no-any
-  public readonly peripherals: IObservableArray<Peripheral> = [] as any;
+  public readonly peripherals: Peripheral[] = [];
 
   @observable
   private state = 'unknown';
@@ -35,7 +32,7 @@ export class Bluetooth {
     } else {
       noble.stopScanning();
 
-      this.peripherals.clear();
+      (this.peripherals as IObservableArray<Peripheral>).clear();
     }
   }
 }

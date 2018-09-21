@@ -1,7 +1,7 @@
 {
-  "name": "@powered-up/sdk",
+  "name": "@powered-up/ble",
   "version": "0.0.0",
-  "description": "A Node.js SDK for controlling the new LEGO® Powered Up platform.",
+  "description": "A reactive device manager for locating and managing LEGO® Bluetooth LE devices.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
   "repository": {
@@ -26,9 +26,8 @@
   "dependencies": {
     "@powered-up/protocol": "0.0.0",
     "debug": "^4.0.1",
-    "mobx": "^5.1.1",
+    "mobx": "^5.1.2",
     "noble": "^1.9.1",
-    "tsdi": "^0.20.3",
     "xpc-connection": "sandeepmistry/node-xpc-connection#pull/26/head"
   },
   "resolutions": {

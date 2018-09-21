@@ -1,6 +1,6 @@
-import {PortMessage} from '../port-message';
+import {Message} from '../message';
 
-export class ModeInput extends PortMessage {
+export class ModeInput extends Message {
   public readonly portType: number;
   public readonly modeType: number;
   public readonly valueReportInterval: number;
@@ -9,7 +9,7 @@ export class ModeInput extends PortMessage {
   public constructor(data: Buffer) {
     super(data);
 
-    this.portType = this.parsePortType();
+    this.portType = data.readUInt8(3);
     this.modeType = data.readUInt8(4);
     this.valueReportInterval = data.readUInt32LE(5);
     this.valueReportEnabled = !!data.readUInt8(9);

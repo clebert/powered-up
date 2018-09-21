@@ -1,7 +1,7 @@
 import {MessageType, ModeInfoType} from '../../types';
-import {PortMessage} from '../port-message';
+import {Message} from '../message';
 
-export class ModeInfoOutput extends PortMessage {
+export class ModeInfoOutput extends Message {
   public constructor(
     public readonly portType: number,
     public readonly modeType: number,

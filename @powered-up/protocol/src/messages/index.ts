@@ -3,21 +3,18 @@ import {
   CommandInput,
   DeviceInfoInput,
   ErrorInput,
+  Input,
   ModeInfoInput,
   ModeInput,
   PropertyInput,
   ValueInput
 } from './input';
-import {PortMessage} from './port-message';
 
 export * from './input';
 export * from './message';
 export * from './output';
-export * from './port-message';
 
-export function parseInput(
-  data: Buffer
-): ErrorInput | PropertyInput | PortMessage | undefined {
+export function parseInput(data: Buffer): Input | undefined {
   switch (data.readUInt8(2)) {
     case MessageType.ErrorInput: {
       return new ErrorInput(data);

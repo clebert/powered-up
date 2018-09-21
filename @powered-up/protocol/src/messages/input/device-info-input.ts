@@ -1,5 +1,5 @@
 import {DeviceType} from '../../types';
-import {PortMessage} from '../port-message';
+import {Message} from '../message';
 
 export interface RealDeviceInfo {
   kind: 'real';
@@ -14,14 +14,14 @@ export interface VirtualDeviceInfo {
 
 export type DeviceInfo = RealDeviceInfo | VirtualDeviceInfo;
 
-export class DeviceInfoInput extends PortMessage {
+export class DeviceInfoInput extends Message {
   public readonly portType: number;
   public readonly deviceInfo?: DeviceInfo;
 
   public constructor(data: Buffer) {
     super(data);
 
-    this.portType = this.parsePortType();
+    this.portType = data.readUInt8(3);
 
     const deviceInfoType = data.readUInt8(4);
 

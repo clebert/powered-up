@@ -12,11 +12,11 @@ are not yet released on NPM. Examples and documentation will be available soon.
 
 ## Packages
 
-### [@powered-up/sdk](https://github.com/clebert/autosrc/tree/master/@powered-up/sdk)
+### [@powered-up/ble](https://github.com/clebert/powered-up/tree/master/@powered-up/ble)
 
-A Node.js SDK for controlling the new LEGO® Powered Up platform.
+A reactive device manager for locating and managing LEGO® Bluetooth LE devices.
 
-### [@powered-up/protocol](https://github.com/clebert/autosrc/tree/master/@powered-up/protocol)
+### [@powered-up/protocol](https://github.com/clebert/powered-up/tree/master/@powered-up/protocol)
 
 A partial implementation of the Powered Up Bluetooth protocol in JavaScript.
 
