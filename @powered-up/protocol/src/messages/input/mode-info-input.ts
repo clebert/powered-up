@@ -1,5 +1,5 @@
 import {ModeInfoFormatType, ModeInfoType} from '../../types';
-import {PortMessage} from '../port-message';
+import {Message} from '../message';
 
 export interface ModeInfoName {
   kind: 'name';
@@ -52,7 +52,7 @@ export type ModeInfo =
   | ModeInfoMapping
   | ModeInfoFormat;
 
-export class ModeInfoInput extends PortMessage {
+export class ModeInfoInput extends Message {
   public readonly portType: number;
   public readonly modeType: number;
   public readonly modeInfoType: ModeInfoType;
@@ -61,7 +61,7 @@ export class ModeInfoInput extends PortMessage {
   public constructor(data: Buffer) {
     super(data);
 
-    this.portType = this.parsePortType();
+    this.portType = data.readUInt8(3);
     this.modeType = data.readUInt8(4);
     this.modeInfoType = data.readUInt8(5);
     this.modeInfo = this.parseModeInfo();

@@ -1,6 +1,6 @@
-import {PortMessage} from '../port-message';
+import {Message} from '../message';
 
-export class CommandInput extends PortMessage {
+export class CommandInput extends Message {
   public readonly portType: number;
   public readonly portBusy: boolean;
   public readonly portBufferFull: boolean;
@@ -10,9 +10,9 @@ export class CommandInput extends PortMessage {
   public constructor(data: Buffer) {
     super(data);
 
-    this.portType = this.parsePortType();
+    this.portType = data.readUInt8(3);
 
-    switch (this.data.readUInt8(4)) {
+    switch (data.readUInt8(4)) {
       case 1: {
         this.portBusy = true;
         this.portBufferFull = false;

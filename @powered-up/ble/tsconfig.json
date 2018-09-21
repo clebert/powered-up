@@ -1,9 +1,8 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "typings/**/*.ts"],
   "compilerOptions": {
     "outDir": "lib/",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   }
 }

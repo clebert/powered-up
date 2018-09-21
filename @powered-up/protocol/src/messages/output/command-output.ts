@@ -1,7 +1,7 @@
 import {CommandType, MessageType} from '../../types';
-import {PortMessage} from '../port-message';
+import {Message} from '../message';
 
-export class CommandOutput extends PortMessage {
+export class CommandOutput extends Message {
   public constructor(
     public readonly portType: number,
     public readonly executeImmediately: boolean /* bufferIfNecessary === false */,
