@@ -2,13 +2,13 @@
 /// <reference path="../typings/noble.d.ts" />
 
 import {configure} from 'mobx';
-import {Bluetooth} from './bluetooth';
-import {DeviceManager} from './device-manager';
+import {BLEManager} from './ble-manager';
+import {HubManager} from './hub-manager';
 
-export * from './bluetooth';
-export * from './device';
-export * from './device-manager';
+export * from './ble-manager';
+export * from './hub-connection';
+export * from './hub-manager';
 
 configure({enforceActions: 'observed'});
 
-export const deviceManager = new DeviceManager(new Bluetooth());
+export const hubManager = new HubManager(new BLEManager());

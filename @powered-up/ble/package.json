@@ -1,7 +1,7 @@
 {
   "name": "@powered-up/ble",
   "version": "0.0.0",
-  "description": "A reactive device manager for locating and managing LEGO® Bluetooth LE devices.",
+  "description": "A reactive library for managing BLE connections to LEGO® Powered Up hubs.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
   "repository": {

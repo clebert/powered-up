@@ -1,7 +1,7 @@
 import {IObservableArray, action, computed, observable} from 'mobx';
 import noble, {Peripheral} from 'noble';
 
-export class Bluetooth {
+export class BLEManager {
   @observable.shallow
   public readonly peripherals: Peripheral[] = [];
 
