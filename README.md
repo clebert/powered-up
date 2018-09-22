@@ -12,6 +12,10 @@ are not yet released on NPM. Examples and documentation will be available soon.
 
 ## Packages
 
+### [@powered-up/sdk](https://github.com/clebert/powered-up/tree/master/@powered-up/sdk)
+
+A Node.js SDK for controlling the new LEGO® Powered Up platform.
+
 ### [@powered-up/ble](https://github.com/clebert/powered-up/tree/master/@powered-up/ble)
 
 A reactive library for managing

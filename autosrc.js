@@ -32,7 +32,7 @@ const tslint = (pkg, files) => {
 
 rules.all = {
   phony: true,
-  prereqs: ['@powered-up/ble/lib']
+  prereqs: ['@powered-up/sdk/lib']
 };
 
 rules.clean = {
