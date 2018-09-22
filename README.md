@@ -1,5 +1,7 @@
 # Powered Up Node.js SDK
 
+[![Build Status](https://travis-ci.org/clebert/powered-up.svg?branch=master)](https://travis-ci.org/clebert/powered-up)
+
 > A Node.js SDK for programming the LEGO® Powered Up platform.
 
 _Disclaimer: LEGO® is a trademark of the LEGO Group of companies which does not
