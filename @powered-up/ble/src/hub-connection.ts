@@ -46,7 +46,6 @@ export class HubConnection {
     return this.connected && this.characteristic !== undefined;
   }
 
-  @action
   public send(output: Output): boolean {
     const {characteristic} = this;
 

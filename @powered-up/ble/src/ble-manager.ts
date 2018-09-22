@@ -3,15 +3,13 @@ import noble, {Peripheral} from 'noble';
 import {HubConnection} from './hub-connection';
 
 export class BLEManager {
-  public static readonly instance = new BLEManager();
-
   @observable.shallow
   private readonly hubConnectionByHubId: Map<string, HubConnection> = new Map();
 
   @observable
   private state = 'unknown';
 
-  private constructor() {
+  public constructor() {
     noble.on('discover', this.handleDiscovery.bind(this));
     noble.on('stateChange', this.handleStateChange.bind(this));
   }
