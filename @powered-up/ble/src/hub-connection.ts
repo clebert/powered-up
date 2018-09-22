@@ -6,6 +6,7 @@ import {debug} from './debug';
 
 export class HubConnection {
   public readonly hubId: string;
+  public readonly hubName: string;
   public readonly hubType: number;
 
   @observable
@@ -25,11 +26,10 @@ export class HubConnection {
     bleManager: BLEManager
   ) {
     this.hubId = peripheral.id;
+    this.hubName = peripheral.advertisement.localName;
     this.hubType = peripheral.advertisement.manufacturerData.readUInt8(3);
 
-    const {localName} = peripheral.advertisement;
-
-    this.debug('Hub discovered:', JSON.stringify(localName));
+    this.debug('Hub discovered:', JSON.stringify(this.hubName));
 
     peripheral.on('connect', this.handleConnect.bind(this));
     peripheral.on('disconnect', this.handleDisconnect.bind(this));
@@ -96,6 +96,8 @@ export class HubConnection {
     } else {
       this.connected = true;
 
+      this.debug('Hub connected:', JSON.stringify(this.hubName));
+
       if (!this.characteristic) {
         this.peripheral.discoverSomeServicesAndCharacteristics(
           [],
@@ -120,6 +122,8 @@ export class HubConnection {
 
     if (this.connected) {
       this.connected = false;
+
+      this.debug('Hub disconnected:', JSON.stringify(this.hubName));
     }
   }
 }
