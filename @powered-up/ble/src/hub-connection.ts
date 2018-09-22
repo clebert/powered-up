@@ -4,8 +4,6 @@ import {Characteristic, Peripheral, Service} from 'noble';
 import {BLEManager} from './ble-manager';
 import {debug} from './debug';
 
-const bleCharacteristicUuid = '000016241212efde1623785feabcd123';
-
 export class HubConnection {
   public readonly hubId: string;
   public readonly hubType: number;
@@ -22,7 +20,10 @@ export class HubConnection {
   @observable
   private connected = false;
 
-  public constructor(bleManager: BLEManager, peripheral: Peripheral) {
+  public constructor(
+    private readonly peripheral: Peripheral,
+    bleManager: BLEManager
+  ) {
     this.hubId = peripheral.id;
     this.hubType = peripheral.advertisement.manufacturerData.readUInt8(3);
 
@@ -34,20 +35,8 @@ export class HubConnection {
     peripheral.on('disconnect', this.handleDisconnect.bind(this));
 
     autorun(() => {
-      if (!bleManager.ready) {
-        this.handleDisconnect(null);
-
-        return;
-      }
-
-      if (!this.connected) {
-        peripheral.connect();
-      } else {
-        peripheral.discoverSomeServicesAndCharacteristics(
-          [],
-          [bleCharacteristicUuid],
-          this.handleDiscovery.bind(this)
-        );
+      if (bleManager.ready && !this.connected) {
+        this.peripheral.connect();
       }
     });
   }
@@ -106,6 +95,14 @@ export class HubConnection {
       this.handleDisconnect(error);
     } else {
       this.connected = true;
+
+      if (!this.characteristic) {
+        this.peripheral.discoverSomeServicesAndCharacteristics(
+          [],
+          ['000016241212efde1623785feabcd123'],
+          this.handleDiscovery.bind(this)
+        );
+      }
     }
   }
 
