@@ -1,6 +1,6 @@
 # Powered Up Node.js SDK
 
-> A Node.js SDK for controlling the new LEGO® Powered Up platform.
+> A Node.js SDK for programming the LEGO® Powered Up platform.
 
 _Disclaimer: LEGO® is a trademark of the LEGO Group of companies which does not
 sponsor, authorize or endorse this software._
@@ -12,9 +12,11 @@ are not yet released on NPM. Examples and documentation will be available soon.
 
 ## Packages
 
-### [@powered-up/sdk](https://github.com/clebert/powered-up/tree/master/@powered-up/sdk)
+### [@powered-up/api](https://github.com/clebert/powered-up/tree/master/@powered-up/api)
 
-A Node.js SDK for controlling the new LEGO® Powered Up platform.
+A reactive library for controlling LEGO® Powered Up devices.
+
+## Internal packages
 
 ### [@powered-up/ble](https://github.com/clebert/powered-up/tree/master/@powered-up/ble)
 
