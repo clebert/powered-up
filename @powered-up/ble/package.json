@@ -27,10 +27,6 @@
     "@powered-up/protocol": "^0.0.0",
     "debug": "^4.0.1",
     "mobx": "^5.1.2",
-    "noble": "^1.9.1",
-    "xpc-connection": "sandeepmistry/node-xpc-connection#pull/26/head"
-  },
-  "resolutions": {
-    "xpc-connection": "sandeepmistry/node-xpc-connection#pull/26/head"
+    "noble": "^1.9.1"
   }
 }
