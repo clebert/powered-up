@@ -28,11 +28,5 @@
     "debug": "^4.0.1",
     "mobx": "^5.1.2",
     "noble": "^1.9.1"
-  },
-  "optionalDependencies": {
-    "xpc-connection": "sandeepmistry/node-xpc-connection#pull/26/head"
-  },
-  "resolutions": {
-    "xpc-connection": "sandeepmistry/node-xpc-connection#pull/26/head"
   }
 }
