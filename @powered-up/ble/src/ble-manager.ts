@@ -22,17 +22,8 @@ export class BLEManager {
   }
 
   @computed
-  public get connectedHubIds(): string[] {
-    return [...this.hubConnectionByHubId.keys()];
-  }
-
-  @computed
   public get hubConnections(): HubConnection[] {
     return [...this.hubConnectionByHubId.values()];
-  }
-
-  public getHubConnection(hubId: string): HubConnection | undefined {
-    return this.hubConnectionByHubId.get(hubId);
   }
 
   @action
