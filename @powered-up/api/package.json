@@ -1,7 +1,7 @@
 {
-  "name": "@powered-up/sdk",
+  "name": "@powered-up/api",
   "version": "0.0.0",
-  "description": "A Node.js SDK for controlling the new LEGO® Powered Up platform.",
+  "description": "A reactive library for controlling LEGO® Powered Up devices.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
   "repository": {
