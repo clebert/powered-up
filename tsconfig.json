@@ -13,6 +13,7 @@
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "lib": ["es2017"],
+    "experimentalDecorators": true,
     "baseUrl": "./@powered-up",
     "paths": {
       "@powered-up/*": ["./*/src"]

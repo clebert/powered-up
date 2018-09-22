@@ -4,10 +4,9 @@ import {Characteristic, Peripheral, Service} from 'noble';
 import {BLEManager} from './ble-manager';
 import {debug} from './debug';
 
-const bleCharacteristicUuid = '000016241212efde1623785feabcd123';
-
 export class HubConnection {
   public readonly hubId: string;
+  public readonly hubName: string;
   public readonly hubType: number;
 
   @observable
@@ -22,32 +21,22 @@ export class HubConnection {
   @observable
   private connected = false;
 
-  public constructor(bleManager: BLEManager, peripheral: Peripheral) {
+  public constructor(
+    private readonly peripheral: Peripheral,
+    bleManager: BLEManager
+  ) {
     this.hubId = peripheral.id;
+    this.hubName = peripheral.advertisement.localName;
     this.hubType = peripheral.advertisement.manufacturerData.readUInt8(3);
 
-    const {localName} = peripheral.advertisement;
-
-    this.debug('Hub discovered:', JSON.stringify(localName));
+    this.debug('Hub discovered:', JSON.stringify(this.hubName));
 
     peripheral.on('connect', this.handleConnect.bind(this));
     peripheral.on('disconnect', this.handleDisconnect.bind(this));
 
     autorun(() => {
-      if (!bleManager.ready) {
-        this.handleDisconnect(null);
-
-        return;
-      }
-
-      if (!this.connected) {
-        peripheral.connect();
-      } else {
-        peripheral.discoverSomeServicesAndCharacteristics(
-          [],
-          [bleCharacteristicUuid],
-          this.handleDiscovery.bind(this)
-        );
+      if (bleManager.ready && !this.connected) {
+        this.peripheral.connect();
       }
     });
   }
@@ -106,6 +95,16 @@ export class HubConnection {
       this.handleDisconnect(error);
     } else {
       this.connected = true;
+
+      this.debug('Hub connected:', JSON.stringify(this.hubName));
+
+      if (!this.characteristic) {
+        this.peripheral.discoverSomeServicesAndCharacteristics(
+          [],
+          ['000016241212efde1623785feabcd123'],
+          this.handleDiscovery.bind(this)
+        );
+      }
     }
   }
 
@@ -123,6 +122,8 @@ export class HubConnection {
 
     if (this.connected) {
       this.connected = false;
+
+      this.debug('Hub disconnected:', JSON.stringify(this.hubName));
     }
   }
 }
