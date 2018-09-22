@@ -21,8 +21,8 @@ export abstract class Device {
           'This device has already been disposed of. Please do not store references to a device outside a reaction.'
         )
       );
+    } else {
+      this.port.hub.send(output);
     }
-
-    this.port.hub.send(output);
   }
 }

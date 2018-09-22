@@ -1,9 +1,13 @@
-import {DeviceInfoInput, DeviceType} from '@powered-up/protocol';
+import {CommandInput, DeviceInfoInput, DeviceType} from '@powered-up/protocol';
 import {action, autorun, observable} from 'mobx';
-import {Device, RGBLight} from './devices';
+import {Device, EncodedMotor, RGBLight} from './devices';
 import {Hub} from './hub';
+import {interrupt} from './interrupt';
 
 export class Port {
+  @observable
+  public busy = false;
+
   @observable
   public device?: Device;
 
@@ -20,14 +24,29 @@ export class Port {
     autorun(() => {
       const {latestPortInput} = hub;
 
-      if (!latestPortInput || latestPortInput.portType !== portType) {
+      if (
+        !hub.connected ||
+        !latestPortInput ||
+        latestPortInput.portType !== portType
+      ) {
         return;
       }
 
-      if (latestPortInput instanceof DeviceInfoInput) {
+      if (latestPortInput instanceof CommandInput) {
+        this.handleCommandInput(latestPortInput);
+      } else if (latestPortInput instanceof DeviceInfoInput) {
         this.handleDeviceInfoInput(latestPortInput);
       }
     });
+  }
+
+  @action
+  private handleCommandInput(input: CommandInput): void {
+    if (input.commandDiscarded) {
+      interrupt(new Error('The last command sent was discarded by the Hub.'));
+    }
+
+    this.busy = input.portBusy;
   }
 
   @action
@@ -41,6 +60,13 @@ export class Port {
     }
 
     switch (deviceInfo.deviceType) {
+      case DeviceType.EncodedMotor:
+      case DeviceType.InternalEncodedMotor: {
+        if (deviceInfo.kind === 'real') {
+          this.device = new EncodedMotor(this);
+        }
+        break;
+      }
       case DeviceType.RGBLight: {
         this.device = new RGBLight(this);
       }
@@ -52,6 +78,7 @@ export class Port {
     if (this.device) {
       this.device.dispose();
 
+      this.busy = false;
       this.device = undefined;
     }
   }
