@@ -1,0 +1,9 @@
+{
+  "name": "@powered-up/demo",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "@powered-up/api": "^0.0.0",
+    "mobx": "^5.1.2"
+  }
+}
