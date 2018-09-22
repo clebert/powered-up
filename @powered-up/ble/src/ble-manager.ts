@@ -1,3 +1,5 @@
+// tslint:disable:no-unbound-method
+
 import {action, computed, observable} from 'mobx';
 import noble, {Peripheral} from 'noble';
 import {HubConnection} from './hub-connection';
@@ -10,8 +12,8 @@ export class BLEManager {
   private state = 'unknown';
 
   public constructor() {
-    noble.on('discover', this.handleDiscovery.bind(this));
-    noble.on('stateChange', this.handleStateChange.bind(this));
+    noble.on('discover', this.handleDiscovery);
+    noble.on('stateChange', this.handleStateChange);
   }
 
   @computed
@@ -24,7 +26,7 @@ export class BLEManager {
     return [...this.hubConnectionByHubId.values()];
   }
 
-  @action
+  @action.bound
   private handleDiscovery(peripheral: Peripheral): void {
     for (const serviceUuid of peripheral.advertisement.serviceUuids) {
       if (serviceUuid === '000016231212efde1623785feabcd123') {
@@ -39,7 +41,7 @@ export class BLEManager {
     }
   }
 
-  @action
+  @action.bound
   private handleStateChange(state: string): void {
     this.state = state;
 

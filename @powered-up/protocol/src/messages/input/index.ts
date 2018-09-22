@@ -14,11 +14,11 @@ export * from './mode-input';
 export * from './property-input';
 export * from './value-input';
 
-export type Input =
+export type PortInput =
   | CommandInput
   | DeviceInfoInput
-  | ErrorInput
   | ModeInfoInput
   | ModeInput
-  | PropertyInput
   | ValueInput;
+
+export type Input = ErrorInput | PortInput | PropertyInput;

@@ -1,4 +1,4 @@
-import {HubManager, SmartMoveHub} from '@powered-up/api';
+import {HubManager, RGBLight, SmartMoveHub} from '@powered-up/api';
 import {autorun} from 'mobx';
 
 const hubManager = new HubManager();
@@ -6,9 +6,15 @@ const hubManager = new HubManager();
 autorun(() => {
   const hub = hubManager.hubs.find(SmartMoveHub.is);
 
-  if (!hub) {
+  if (!hub || !hub.connected) {
     return;
   }
 
-  console.log('Hub found!');
+  const rgbLight = hub.rgbLight.device;
+
+  if (!RGBLight.is(rgbLight)) {
+    return;
+  }
+
+  rgbLight.setColor({red: 0, green: 255, blue: 0});
 });

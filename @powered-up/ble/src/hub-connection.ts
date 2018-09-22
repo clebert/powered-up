@@ -1,3 +1,5 @@
+// tslint:disable:no-unbound-method
+
 import {Input, Output, parseInput} from '@powered-up/protocol';
 import {action, autorun, computed, observable} from 'mobx';
 import {Characteristic, Peripheral, Service} from 'noble';
@@ -31,8 +33,8 @@ export class HubConnection {
 
     this.debug('Hub discovered:', JSON.stringify(this.hubName));
 
-    peripheral.on('connect', this.handleConnect.bind(this));
-    peripheral.on('disconnect', this.handleDisconnect.bind(this));
+    peripheral.on('connect', this.handleConnect);
+    peripheral.on('disconnect', this.handleDisconnect);
 
     autorun(() => {
       if (bleManager.ready && !this.connected) {
@@ -66,7 +68,7 @@ export class HubConnection {
     debug(`${this.hubId}:${this.hubType}`, ...args);
   }
 
-  @action
+  @action.bound
   private handleData(data: Buffer): void {
     const input = (this.latestInput = parseInput(data));
 
@@ -77,7 +79,7 @@ export class HubConnection {
     }
   }
 
-  @action
+  @action.bound
   private handleDiscovery(
     _error: never,
     _services: Service[],
@@ -85,13 +87,14 @@ export class HubConnection {
   ): void {
     this.characteristic = characteristics[0];
 
-    this.characteristic.on('data', this.handleData.bind(this));
+    this.characteristic.on('data', this.handleData);
+    this.characteristic.subscribe(this.handleError);
   }
 
-  @action
+  @action.bound
   private handleConnect(error: Error | null): void {
     if (error) {
-      this.handleDisconnect(error);
+      this.handleError(error);
     } else {
       this.connected = true;
 
@@ -101,13 +104,13 @@ export class HubConnection {
         this.peripheral.discoverSomeServicesAndCharacteristics(
           [],
           ['000016241212efde1623785feabcd123'],
-          this.handleDiscovery.bind(this)
+          this.handleDiscovery
         );
       }
     }
   }
 
-  @action
+  @action.bound
   private handleDisconnect(error: Error | null): void {
     if (error) {
       this.latestError = error;
@@ -115,6 +118,7 @@ export class HubConnection {
 
     if (this.characteristic) {
       this.characteristic.removeAllListeners('data');
+      this.characteristic.unsubscribe(this.handleError);
 
       this.characteristic = undefined;
     }
@@ -123,6 +127,13 @@ export class HubConnection {
       this.connected = false;
 
       this.debug('Hub disconnected:', JSON.stringify(this.hubName));
+    }
+  }
+
+  @action.bound
+  private handleError(error: Error | null): void {
+    if (error) {
+      this.handleDisconnect(error);
     }
   }
 }
