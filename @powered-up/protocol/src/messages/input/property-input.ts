@@ -3,7 +3,7 @@ import {Message} from '../message';
 
 export interface PropertyUpdateButton {
   kind: 'button';
-  pressed: boolean;
+  button: boolean;
 }
 
 export interface PropertyUpdateVersion {
@@ -30,22 +30,22 @@ export class PropertyInput extends Message {
   }
 
   private parsePropertyUpdate(): PropertyUpdate | undefined {
-    const rawPropertyState = this.data.slice(5);
+    const rawPropertyUpdate = this.data.slice(5);
 
     switch (this.propertyType) {
       case PropertyType.Button: {
         return {
           kind: 'button',
-          pressed: !!rawPropertyState.readUInt8(0)
+          button: !!rawPropertyUpdate.readUInt8(0)
         };
       }
       case PropertyType.FirmwareVersion:
       case PropertyType.HardwareVersion: {
         // tslint:disable:no-bitwise
-        const build = rawPropertyState.readUInt16LE(0);
-        const patch = rawPropertyState.readUInt8(2);
-        const minor = rawPropertyState.readUInt8(3) & 15;
-        const major = (rawPropertyState.readUInt8(3) & 240) >> 4;
+        const build = rawPropertyUpdate.readUInt16LE(0);
+        const patch = rawPropertyUpdate.readUInt8(2);
+        const minor = rawPropertyUpdate.readUInt8(3) & 15;
+        const major = (rawPropertyUpdate.readUInt8(3) & 240) >> 4;
         // tslint:enable:no-bitwise
 
         return {

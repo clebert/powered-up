@@ -90,7 +90,7 @@ export abstract class Hub {
       propertyUpdate &&
       propertyUpdate.kind === 'button'
     ) {
-      this.buttonPressed = propertyUpdate.pressed;
+      this.buttonPressed = propertyUpdate.button;
     }
   }
 }
