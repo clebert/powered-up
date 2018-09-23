@@ -27,11 +27,19 @@ autorun(() => {
     return;
   }
 
-  if (hub.encodedMotorA.busy) {
+  if (encodedMotorA.position !== undefined) {
+    console.log('Position:', encodedMotorA.position);
+  }
+
+  if (encodedMotorA.busy) {
     rgbLight.setColor({red: 255, green: 0, blue: 0});
   } else {
     rgbLight.setColor({red: 0, green: 255, blue: 0});
 
-    encodedMotorA.runWithSpeedForDuration(100, 1000);
+    if (encodedMotorA.mode !== 'Position') {
+      encodedMotorA.setMode('Position');
+    } else {
+      encodedMotorA.runWithSpeedForDuration(100, 1000);
+    }
   }
 });
