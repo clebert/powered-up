@@ -1,8 +1,10 @@
 import {
   EncodedMotorAccDecProfileType,
   EncodedMotorEndStateType,
+  EncodedMotorModeType,
   EncodedMotorService
 } from '@powered-up/protocol';
+import {computed} from 'mobx';
 import {Device} from './device';
 
 export type EndState = 'Braking' | 'Drifting' | 'Holding';
@@ -13,7 +15,55 @@ export class EncodedMotor extends Device {
     return device instanceof EncodedMotor;
   }
 
-  private readonly service = new EncodedMotorService(this.port.portType, 100);
+  private readonly service = new EncodedMotorService(this.portType, 100);
+
+  @computed
+  public get position(): number | undefined {
+    const {modeType, rawValue} = this;
+
+    if (modeType !== EncodedMotorModeType.Position) {
+      return undefined;
+    }
+
+    return rawValue && this.service.parseValue(modeType, rawValue);
+  }
+
+  @computed
+  public get power(): number | undefined {
+    const {modeType, rawValue} = this;
+
+    if (modeType !== EncodedMotorModeType.Power) {
+      return undefined;
+    }
+
+    return rawValue && this.service.parseValue(modeType, rawValue);
+  }
+
+  @computed
+  public get speed(): number | undefined {
+    const {modeType, rawValue} = this;
+
+    if (modeType !== EncodedMotorModeType.Speed) {
+      return undefined;
+    }
+
+    return rawValue && this.service.parseValue(modeType, rawValue);
+  }
+
+  @computed
+  public get mode(): Mode | undefined {
+    const {modeType} = this;
+
+    if (modeType === undefined) {
+      return;
+    }
+
+    return EncodedMotorModeType[modeType] as Mode;
+  }
+
+  public setMode(mode: Mode): void {
+    this.send(this.service.setMode(EncodedMotorModeType[mode]));
+  }
 
   public brake(): void {
     this.send(this.service.brake());

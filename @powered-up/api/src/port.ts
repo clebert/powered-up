@@ -1,15 +1,21 @@
-import {CommandInput, DeviceInfoInput, DeviceType} from '@powered-up/protocol';
+import {
+  CommandInput,
+  DeviceInfoInput,
+  DeviceType,
+  ModeInfoInput,
+  ModeInput,
+  ValueInput
+} from '@powered-up/protocol';
 import {action, autorun, observable} from 'mobx';
-import {Device, EncodedMotor, RGBLight} from './devices';
+import {Device, EncodedMotor, Motor, RGBLight} from './devices';
 import {Hub} from './hub';
-import {interrupt} from './interrupt';
 
 export class Port {
   @observable
-  public busy = false;
+  public device?: Device;
 
   @observable
-  public device?: Device;
+  public latestInput?: CommandInput | ModeInfoInput | ModeInput | ValueInput;
 
   public constructor(
     public readonly portType: number,
@@ -32,21 +38,19 @@ export class Port {
         return;
       }
 
-      if (latestPortInput instanceof CommandInput) {
-        this.handleCommandInput(latestPortInput);
-      } else if (latestPortInput instanceof DeviceInfoInput) {
+      if (latestPortInput instanceof DeviceInfoInput) {
         this.handleDeviceInfoInput(latestPortInput);
+      } else {
+        this.handleInput(latestPortInput);
       }
     });
   }
 
   @action
-  private handleCommandInput(input: CommandInput): void {
-    if (input.commandDiscarded) {
-      interrupt(new Error('The last command sent was discarded by the Hub.'));
-    }
-
-    this.busy = input.portBusy;
+  private handleInput(
+    input: CommandInput | ModeInfoInput | ModeInput | ValueInput
+  ): void {
+    this.latestInput = input;
   }
 
   @action
@@ -67,6 +71,10 @@ export class Port {
         }
         break;
       }
+      case DeviceType.Motor: {
+        this.device = new Motor(this);
+        break;
+      }
       case DeviceType.RGBLight: {
         this.device = new RGBLight(this);
       }
@@ -77,9 +85,9 @@ export class Port {
   private reset(): void {
     if (this.device) {
       this.device.dispose();
-
-      this.busy = false;
-      this.device = undefined;
     }
+
+    this.device = undefined;
+    this.latestInput = undefined;
   }
 }
