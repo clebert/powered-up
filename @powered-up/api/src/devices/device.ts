@@ -50,7 +50,7 @@ export abstract class Device {
     if (this.disposed) {
       interrupt(
         new Error(
-          'This device has already been disposed of. Please do not store references to a device outside a reaction.'
+          'Unable to send message, the device is already disposed of. Please do not store references to a device outside a reaction.'
         )
       );
     } else {
@@ -65,7 +65,7 @@ export abstract class Device {
   @action
   private handleCommandInput(input: CommandInput): void {
     if (input.commandDiscarded) {
-      interrupt(new Error('The last command sent was discarded by the Hub.'));
+      interrupt(new Error('Command discarded.'));
     }
 
     this.busy = input.portBusy;

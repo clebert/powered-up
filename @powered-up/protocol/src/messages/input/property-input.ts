@@ -1,30 +1,22 @@
 import {PropertyOperationType, PropertyType} from '../../types';
 import {Message} from '../message';
 
-export interface PropertyOperationButtonState {
-  kind: 'button-state';
-  pressed: boolean;
+export interface PropertyUpdateButton {
+  kind: 'button';
+  button: boolean;
 }
 
-export interface PropertyOperationVersion {
+export interface PropertyUpdateVersion {
   kind: 'version';
   version: string;
 }
 
-export interface PropertyOperationRaw {
-  kind: 'raw';
-  raw: Buffer;
-}
-
-export type PropertyOperationPayload =
-  | PropertyOperationButtonState
-  | PropertyOperationRaw
-  | PropertyOperationVersion;
+export type PropertyUpdate = PropertyUpdateButton | PropertyUpdateVersion;
 
 export class PropertyInput extends Message {
   public readonly propertyType: PropertyType;
   public readonly propertyOperationType: PropertyOperationType;
-  public readonly propertyOperationPayload: PropertyOperationPayload;
+  public readonly propertyUpdate?: PropertyUpdate;
 
   public constructor(data: Buffer) {
     super(data);
@@ -32,36 +24,37 @@ export class PropertyInput extends Message {
     this.propertyType = data.readUInt8(3);
     this.propertyOperationType = data.readUInt8(4);
 
-    const rawPropertyOperationPayload = data.slice(5);
+    if (this.propertyOperationType === PropertyOperationType.Update) {
+      this.propertyUpdate = this.parsePropertyUpdate();
+    }
+  }
+
+  private parsePropertyUpdate(): PropertyUpdate | undefined {
+    const rawPropertyUpdate = this.data.slice(5);
 
     switch (this.propertyType) {
       case PropertyType.Button: {
-        this.propertyOperationPayload = {
-          kind: 'button-state',
-          pressed: !!rawPropertyOperationPayload.readUInt8(0)
+        return {
+          kind: 'button',
+          button: !!rawPropertyUpdate.readUInt8(0)
         };
-        break;
       }
       case PropertyType.FirmwareVersion:
       case PropertyType.HardwareVersion: {
         // tslint:disable:no-bitwise
-        const build = rawPropertyOperationPayload.readUInt16LE(0);
-        const patch = rawPropertyOperationPayload.readUInt8(2);
-        const minor = rawPropertyOperationPayload.readUInt8(3) & 15;
-        const major = (rawPropertyOperationPayload.readUInt8(3) & 240) >> 4;
+        const build = rawPropertyUpdate.readUInt16LE(0);
+        const patch = rawPropertyUpdate.readUInt8(2);
+        const minor = rawPropertyUpdate.readUInt8(3) & 15;
+        const major = (rawPropertyUpdate.readUInt8(3) & 240) >> 4;
         // tslint:enable:no-bitwise
 
-        this.propertyOperationPayload = {
+        return {
           kind: 'version',
           version: `${major}.${minor}.${patch}.${build}`
         };
-        break;
       }
       default: {
-        this.propertyOperationPayload = {
-          kind: 'raw',
-          raw: rawPropertyOperationPayload
-        };
+        return;
       }
     }
   }

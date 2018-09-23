@@ -4,31 +4,80 @@ import {
   RGBLight,
   SmartMoveHub
 } from '@powered-up/api';
-import {autorun} from 'mobx';
+import {autorun, computed} from 'mobx';
 
 const hubManager = new HubManager();
 
-autorun(() => {
-  const hub = hubManager.hubs.find(SmartMoveHub.is);
+const smartMoveHubValue = computed(() => {
+  const smartMoveHub = hubManager.hubs.find(SmartMoveHub.is);
 
-  if (!hub || !hub.connected) {
+  if (!smartMoveHub || !smartMoveHub.connected) {
     return;
   }
 
-  const rgbLight = hub.rgbLight.device;
+  return smartMoveHub;
+});
 
-  if (!RGBLight.is(rgbLight)) {
+const encodedMotorAValue = computed(() => {
+  const smartMoveHub = smartMoveHubValue.get();
+
+  if (!smartMoveHub) {
     return;
   }
 
-  const encodedMotorA = hub.encodedMotorA.device;
+  const encodedMotorA = smartMoveHub.encodedMotorA.device;
 
   if (!EncodedMotor.is(encodedMotorA)) {
     return;
   }
 
+  return encodedMotorA;
+});
+
+const rgbLightValue = computed(() => {
+  const smartMoveHub = smartMoveHubValue.get();
+
+  if (!smartMoveHub) {
+    return;
+  }
+
+  const rgbLight = smartMoveHub.rgbLight.device;
+
+  if (!RGBLight.is(rgbLight)) {
+    return;
+  }
+
+  return rgbLight;
+});
+
+autorun(() => {
+  const smartMoveHub = smartMoveHubValue.get();
+
+  if (!smartMoveHub) {
+    return;
+  }
+
+  console.log('Button pressed:', smartMoveHub.buttonPressed);
+});
+
+autorun(() => {
+  const encodedMotorA = encodedMotorAValue.get();
+
+  if (!encodedMotorA) {
+    return;
+  }
+
   if (encodedMotorA.position !== undefined) {
     console.log('Position:', encodedMotorA.position);
+  }
+});
+
+autorun(() => {
+  const encodedMotorA = encodedMotorAValue.get();
+  const rgbLight = rgbLightValue.get();
+
+  if (!encodedMotorA || !rgbLight) {
+    return;
   }
 
   if (encodedMotorA.busy) {

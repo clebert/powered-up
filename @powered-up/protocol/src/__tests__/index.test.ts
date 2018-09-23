@@ -351,6 +351,8 @@ describe('#parseInput', () => {
   });
 
   describe('parses a PropertyInput message sent from a SmartMoveHub', () => {
+    // TODO: test button message
+
     test('FirmwareVersion => Update', () => {
       const data = parseHex('09 00 01 03 06 23 02 00 10'); // real
 
@@ -358,7 +360,7 @@ describe('#parseInput', () => {
         data,
         propertyType: PropertyType.FirmwareVersion,
         propertyOperationType: PropertyOperationType.Update,
-        propertyOperationPayload: {kind: 'version', version: '1.0.0.547'}
+        propertyUpdate: {kind: 'version', version: '1.0.0.547'}
       });
     });
 
@@ -369,7 +371,7 @@ describe('#parseInput', () => {
         data,
         propertyType: PropertyType.HardwareVersion,
         propertyOperationType: PropertyOperationType.Update,
-        propertyOperationPayload: {kind: 'version', version: '0.4.0.0'}
+        propertyUpdate: {kind: 'version', version: '0.4.0.0'}
       });
     });
   });
@@ -382,7 +384,7 @@ describe('#parseInput', () => {
         data,
         propertyType: PropertyType.FirmwareVersion,
         propertyOperationType: PropertyOperationType.Update,
-        propertyOperationPayload: {kind: 'version', version: '1.0.3.0'}
+        propertyUpdate: {kind: 'version', version: '1.0.3.0'}
       });
     });
 
@@ -393,7 +395,7 @@ describe('#parseInput', () => {
         data,
         propertyType: PropertyType.HardwareVersion,
         propertyOperationType: PropertyOperationType.Update,
-        propertyOperationPayload: {kind: 'version', version: '0.1.0.0'}
+        propertyUpdate: {kind: 'version', version: '0.1.0.0'}
       });
     });
   });

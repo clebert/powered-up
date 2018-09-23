@@ -2,16 +2,21 @@ import {HubConnection} from '@powered-up/ble';
 import {
   ErrorInput,
   ErrorType,
+  HubService,
   MessageType,
   Output,
   PortInput,
-  PropertyInput
+  PropertyInput,
+  PropertyType
 } from '@powered-up/protocol';
 import {action, autorun, computed, observable} from 'mobx';
 import {interrupt} from './interrupt';
 
 export abstract class Hub {
   public readonly id: string;
+
+  @observable
+  public buttonPressed = false;
 
   @observable
   public latestPortInput?: PortInput;
@@ -30,28 +35,30 @@ export abstract class Hub {
     autorun(() => {
       const {latestInput} = hubConnection;
 
-      if (!latestInput) {
-        return;
-      }
-
       if (latestInput instanceof ErrorInput) {
         this.handleErrorInput(latestInput);
       } else if (latestInput instanceof PropertyInput) {
         this.handlePropertyInput(latestInput);
-      } else {
+      } else if (latestInput) {
         this.handlePortInput(latestInput);
+      }
+    });
+
+    autorun(() => {
+      if (this.connected) {
+        this.send(HubService.enableButton());
       }
     });
   }
 
   @computed
   public get connected(): boolean {
-    return this.hubConnection.ready;
+    return this.hubConnection.ready && !!this.latestPortInput;
   }
 
   public send(output: Output): void {
     if (!this.hubConnection.send(output)) {
-      interrupt(new Error('This hub is not connected.'));
+      interrupt(new Error('Unable to send message, the hub is not connected.'));
     }
   }
 
@@ -74,7 +81,16 @@ export abstract class Hub {
     this.latestPortInput = input;
   }
 
-  private handlePropertyInput(_input: PropertyInput): void {
-    // TODO:
+  @action
+  private handlePropertyInput(input: PropertyInput): void {
+    const {propertyUpdate, propertyType} = input;
+
+    if (
+      propertyType === PropertyType.Button &&
+      propertyUpdate &&
+      propertyUpdate.kind === 'button'
+    ) {
+      this.buttonPressed = propertyUpdate.button;
+    }
   }
 }
