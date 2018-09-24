@@ -1,112 +1,36 @@
-import {
-  EncodedMotor,
-  HubManager,
-  RGBLight,
-  SmartMoveHub
-} from '@powered-up/api';
-import {autorun, computed} from 'mobx';
+import {autorun} from 'mobx';
+import {Robot} from './robot';
 
-function interrupt(error: Error): void {
-  setImmediate(() => {
-    throw error;
-  });
-}
+const robot = new Robot();
 
-const hubManager = new HubManager();
-
-const smartMoveHubValue = computed(() => {
-  const smartMoveHub = hubManager.hubs.find(SmartMoveHub.is);
-
-  if (!smartMoveHub || !smartMoveHub.connected) {
-    return;
-  }
-
-  if (smartMoveHub.latestError) {
-    interrupt(smartMoveHub.latestError);
-  }
-
-  return smartMoveHub;
-});
-
-const encodedMotorAValue = computed(() => {
-  const smartMoveHub = smartMoveHubValue.get();
-
-  if (!smartMoveHub) {
-    return;
-  }
-
-  const encodedMotorA = smartMoveHub.encodedMotorA.device;
-
-  if (!EncodedMotor.is(encodedMotorA)) {
-    return;
-  }
-
-  if (encodedMotorA.latestError) {
-    interrupt(encodedMotorA.latestError);
-  }
-
-  return encodedMotorA;
-});
-
-const rgbLightValue = computed(() => {
-  const smartMoveHub = smartMoveHubValue.get();
-
-  if (!smartMoveHub) {
-    return;
-  }
-
-  const rgbLight = smartMoveHub.rgbLight.device;
-
-  if (!RGBLight.is(rgbLight)) {
-    return;
-  }
-
-  if (rgbLight.latestError) {
-    interrupt(rgbLight.latestError);
-  }
-
-  return rgbLight;
+autorun(() => {
+  console.log('Button pressed:', robot.buttonPressed);
 });
 
 autorun(() => {
-  const smartMoveHub = smartMoveHubValue.get();
+  const {motorA} = robot;
 
-  if (!smartMoveHub) {
-    return;
-  }
-
-  console.log('Button pressed:', smartMoveHub.buttonPressed);
-});
-
-autorun(() => {
-  const encodedMotorA = encodedMotorAValue.get();
-
-  if (!encodedMotorA) {
-    return;
-  }
-
-  if (encodedMotorA.position !== undefined) {
-    console.log('Position:', encodedMotorA.position);
+  if (motorA && motorA.position !== undefined) {
+    console.log('Position:', motorA.position);
   }
 });
 
 autorun(() => {
-  const encodedMotorA = encodedMotorAValue.get();
-  const rgbLight = rgbLightValue.get();
+  const {motorA, statusLight} = robot;
 
-  if (!encodedMotorA || !rgbLight) {
+  if (!motorA || !statusLight) {
     return;
   }
 
-  if (encodedMotorA.busy) {
-    rgbLight.setColor({red: 255, green: 0, blue: 0});
+  if (motorA.busy) {
+    statusLight.setColor({red: 255, green: 0, blue: 0});
   } else {
-    rgbLight.setColor({red: 0, green: 255, blue: 0});
+    statusLight.setColor({red: 0, green: 255, blue: 0});
 
-    if (encodedMotorA.mode !== 'Position') {
-      encodedMotorA.setMode('Position');
+    if (motorA.mode !== 'Position') {
+      motorA.setMode('Position');
     } else {
-      encodedMotorA.runWithSpeedForDuration(100, 1000);
+      motorA.runWithSpeedForDuration(100, 1000);
     }
   }
 });
