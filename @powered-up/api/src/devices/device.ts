@@ -6,7 +6,6 @@ import {
   ValueInput
 } from '@powered-up/protocol';
 import {action, autorun, observable} from 'mobx';
-import {interrupt} from '../interrupt';
 import {Port} from '../port';
 
 export abstract class Device {
@@ -15,6 +14,9 @@ export abstract class Device {
 
   @observable
   public disposed: boolean = false;
+
+  @observable
+  public latestError?: Error;
 
   protected readonly portType: number;
 
@@ -48,7 +50,7 @@ export abstract class Device {
   @action
   protected send(output: Output): void {
     if (this.disposed) {
-      interrupt(
+      this.handleError(
         new Error(
           'Unable to send message, the device is already disposed of. Please do not store references to a device outside a reaction.'
         )
@@ -63,9 +65,14 @@ export abstract class Device {
   }
 
   @action
+  private handleError(error: Error): void {
+    this.latestError = error;
+  }
+
+  @action
   private handleCommandInput(input: CommandInput): void {
     if (input.commandDiscarded) {
-      interrupt(new Error('Command discarded.'));
+      this.handleError(new Error('Command discarded.'));
     }
 
     this.busy = input.portBusy;

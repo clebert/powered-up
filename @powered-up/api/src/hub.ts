@@ -10,13 +10,15 @@ import {
   PropertyType
 } from '@powered-up/protocol';
 import {action, autorun, computed, observable} from 'mobx';
-import {interrupt} from './interrupt';
 
 export abstract class Hub {
   public readonly id: string;
 
   @observable
   public buttonPressed = false;
+
+  @observable
+  public latestError?: Error;
 
   @observable
   public latestPortInput?: PortInput;
@@ -28,7 +30,7 @@ export abstract class Hub {
       const {latestError} = hubConnection;
 
       if (latestError) {
-        interrupt(latestError);
+        this.handleError(latestError);
       }
     });
 
@@ -60,8 +62,15 @@ export abstract class Hub {
 
   public send(output: Output): void {
     if (!this.hubConnection.send(output)) {
-      interrupt(new Error('Unable to send message, the hub is not connected.'));
+      this.handleError(
+        new Error('Unable to send message, the hub is not connected.')
+      );
     }
+  }
+
+  @action
+  private handleError(error: Error): void {
+    this.latestError = error;
   }
 
   private handleErrorInput(input: ErrorInput): void {
@@ -73,7 +82,7 @@ export abstract class Hub {
 
     const errorName = `${ErrorType[errorType]}(${errorType})`;
 
-    interrupt(
+    this.handleError(
       new Error(`${errorName} error caused by ${messageName} message.`)
     );
   }
@@ -99,6 +108,7 @@ export abstract class Hub {
   @action
   private reset(): void {
     this.buttonPressed = false;
+    this.latestError = undefined;
     this.latestPortInput = undefined;
   }
 }
