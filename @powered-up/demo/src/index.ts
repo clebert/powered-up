@@ -1,36 +1,37 @@
+import {HubManager, SmartMoveRobot} from '@powered-up/api';
 import {autorun} from 'mobx';
-import {Robot} from './robot';
 
-const robot = new Robot();
+const hubManager = new HubManager();
+const robot = new SmartMoveRobot(hubManager);
 
 autorun(() => {
   console.log('Button pressed:', robot.buttonPressed);
 });
 
 autorun(() => {
-  const {motorA} = robot;
+  const {encodedMotorA} = robot;
 
-  if (motorA && motorA.position !== undefined) {
-    console.log('Position:', motorA.position);
+  if (encodedMotorA && encodedMotorA.position !== undefined) {
+    console.log('Position:', encodedMotorA.position);
   }
 });
 
 autorun(() => {
-  const {motorA, statusLight} = robot;
+  const {encodedMotorA, rgbLight} = robot;
 
-  if (!motorA || !statusLight) {
+  if (!encodedMotorA || !rgbLight) {
     return;
   }
 
-  if (motorA.busy) {
-    statusLight.setColor({red: 255, green: 0, blue: 0});
+  if (encodedMotorA.busy) {
+    rgbLight.setColor({red: 255, green: 0, blue: 0});
   } else {
-    statusLight.setColor({red: 0, green: 255, blue: 0});
+    rgbLight.setColor({red: 0, green: 255, blue: 0});
 
-    if (motorA.mode !== 'Position') {
-      motorA.setMode('Position');
+    if (encodedMotorA.mode !== 'Position') {
+      encodedMotorA.setMode('Position');
     } else {
-      motorA.runWithSpeedForDuration(100, 1000);
+      encodedMotorA.runWithSpeedForDuration(100, 1000);
     }
   }
 });
