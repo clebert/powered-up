@@ -6,8 +6,7 @@ import {
   MessageType,
   Output,
   PortInput,
-  PropertyInput,
-  PropertyType
+  PropertyInput
 } from '@powered-up/protocol';
 import {action, autorun, computed, observable} from 'mobx';
 
@@ -15,13 +14,13 @@ export abstract class Hub {
   public readonly id: string;
 
   @observable
-  public buttonPressed = false;
-
-  @observable
   public latestError?: Error;
 
   @observable
   public latestPortInput?: PortInput;
+
+  @observable
+  public latestPropertyInput?: PropertyInput;
 
   public constructor(private readonly hubConnection: HubConnection) {
     this.id = hubConnection.hubId;
@@ -94,21 +93,13 @@ export abstract class Hub {
 
   @action
   private handlePropertyInput(input: PropertyInput): void {
-    const {propertyUpdate, propertyType} = input;
-
-    if (
-      propertyType === PropertyType.Button &&
-      propertyUpdate &&
-      propertyUpdate.kind === 'button'
-    ) {
-      this.buttonPressed = propertyUpdate.button;
-    }
+    this.latestPropertyInput = input;
   }
 
   @action
   private reset(): void {
-    this.buttonPressed = false;
     this.latestError = undefined;
     this.latestPortInput = undefined;
+    this.latestPropertyInput = undefined;
   }
 }
