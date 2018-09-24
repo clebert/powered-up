@@ -6,6 +6,12 @@ import {
 } from '@powered-up/api';
 import {autorun, computed} from 'mobx';
 
+function interrupt(error: Error): void {
+  setImmediate(() => {
+    throw error;
+  });
+}
+
 const hubManager = new HubManager();
 
 const smartMoveHubValue = computed(() => {
@@ -13,6 +19,10 @@ const smartMoveHubValue = computed(() => {
 
   if (!smartMoveHub || !smartMoveHub.connected) {
     return;
+  }
+
+  if (smartMoveHub.latestError) {
+    interrupt(smartMoveHub.latestError);
   }
 
   return smartMoveHub;
@@ -31,6 +41,10 @@ const encodedMotorAValue = computed(() => {
     return;
   }
 
+  if (encodedMotorA.latestError) {
+    interrupt(encodedMotorA.latestError);
+  }
+
   return encodedMotorA;
 });
 
@@ -45,6 +59,10 @@ const rgbLightValue = computed(() => {
 
   if (!RGBLight.is(rgbLight)) {
     return;
+  }
+
+  if (rgbLight.latestError) {
+    interrupt(rgbLight.latestError);
   }
 
   return rgbLight;
