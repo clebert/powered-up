@@ -47,6 +47,8 @@ export abstract class Hub {
     autorun(() => {
       if (this.connected) {
         this.send(HubService.enableButton());
+      } else {
+        this.reset();
       }
     });
   }
@@ -92,5 +94,11 @@ export abstract class Hub {
     ) {
       this.buttonPressed = propertyUpdate.button;
     }
+  }
+
+  @action
+  private reset(): void {
+    this.buttonPressed = false;
+    this.latestPortInput = undefined;
   }
 }
