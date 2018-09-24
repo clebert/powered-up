@@ -1,6 +1,7 @@
 # Powered Up Node.js SDK
 
 [![Build Status](https://travis-ci.org/clebert/powered-up.svg?branch=master)](https://travis-ci.org/clebert/powered-up)
+[![Package Version](https://img.shields.io/npm/v/@powered-up/api.svg)](https://yarnpkg.com/en/package/@powered-up/api)
 
 > A Node.js SDK for programming the LEGO® Powered Up platform.
 
@@ -9,8 +10,8 @@ sponsor, authorize or endorse this software._
 
 ## Getting started
 
-This software is still in an early stage of development. The individual packages
-are not yet released on NPM. Examples and documentation will be available soon.
+This software is still in an early stage of development. Examples and
+documentation will be available soon.
 
 ## Packages
 
