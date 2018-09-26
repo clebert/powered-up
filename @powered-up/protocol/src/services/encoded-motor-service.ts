@@ -67,9 +67,7 @@ export class EncodedMotorService extends PortService<EncodedMotorModeType> {
     commandPayload.writeInt8(this.maxPower, 1);
     commandPayload.writeUInt8(accDecProfileType, 2);
 
-    return new CommandOutput(
-      this.portType,
-      true,
+    return this.executeCommand(
       CommandType.EncodedMotorRunWithSpeed,
       commandPayload
     );
@@ -89,9 +87,7 @@ export class EncodedMotorService extends PortService<EncodedMotorModeType> {
     commandPayload.writeUInt8(endStateType, 6);
     commandPayload.writeUInt8(accDecProfileType, 7);
 
-    return new CommandOutput(
-      this.portType,
-      true,
+    return this.executeCommand(
       CommandType.EncodedMotorRunWithSpeedForDistance,
       commandPayload
     );
@@ -111,9 +107,7 @@ export class EncodedMotorService extends PortService<EncodedMotorModeType> {
     commandPayload.writeUInt8(endStateType, 4);
     commandPayload.writeUInt8(accDecProfileType, 5);
 
-    return new CommandOutput(
-      this.portType,
-      true,
+    return this.executeCommand(
       CommandType.EncodedMotorRunWithSpeedForDuration,
       commandPayload
     );
@@ -133,9 +127,7 @@ export class EncodedMotorService extends PortService<EncodedMotorModeType> {
     commandPayload.writeUInt8(endStateType, 6);
     commandPayload.writeUInt8(accDecProfileType, 7);
 
-    return new CommandOutput(
-      this.portType,
-      true,
+    return this.executeCommand(
       CommandType.EncodedMotorRunWithSpeedToPosition,
       commandPayload
     );
@@ -150,9 +142,7 @@ export class EncodedMotorService extends PortService<EncodedMotorModeType> {
     commandPayload.writeUInt16LE(duration, 0);
     commandPayload.writeUInt8(accDecProfileType, 2);
 
-    return new CommandOutput(
-      this.portType,
-      true,
+    return this.executeCommand(
       CommandType.EncodedMotorSetAccelerationDuration,
       commandPayload
     );
@@ -167,9 +157,7 @@ export class EncodedMotorService extends PortService<EncodedMotorModeType> {
     commandPayload.writeUInt16LE(duration, 0);
     commandPayload.writeUInt8(accDecProfileType, 2);
 
-    return new CommandOutput(
-      this.portType,
-      true,
+    return this.executeCommand(
       CommandType.EncodedMotorSetDecelerationDuration,
       commandPayload
     );

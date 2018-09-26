@@ -8,6 +8,13 @@ export abstract class PortService<TModeType extends number> {
     return new ModeOutput(this.portType, modeType, 1, true);
   }
 
+  protected executeCommand(
+    commandType: CommandType,
+    commandPayload: Buffer
+  ): CommandOutput {
+    return new CommandOutput(this.portType, true, commandType, commandPayload);
+  }
+
   protected setValueForMode(modeType: TModeType, value: Buffer): CommandOutput {
     const commandPayload = Buffer.alloc(value.length + 1);
 
