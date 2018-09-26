@@ -9,29 +9,49 @@ autorun(() => {
 });
 
 autorun(() => {
-  const {encodedMotorA} = robot;
+  const {encodedMotorA, encodedMotorB} = robot;
 
-  if (encodedMotorA && encodedMotorA.position !== undefined) {
-    console.log('Position:', encodedMotorA.position);
+  if (!encodedMotorA || !encodedMotorB) {
+    return;
+  }
+
+  if (!encodedMotorA.busy && encodedMotorA.mode !== 'Position') {
+    encodedMotorA.setMode('Position');
+  }
+
+  if (!encodedMotorB.busy && encodedMotorB.mode !== 'Position') {
+    encodedMotorB.setMode('Position');
   }
 });
 
 autorun(() => {
-  const {encodedMotorA, rgbLight} = robot;
+  const {encodedMotorA, encodedMotorB} = robot;
 
-  if (!encodedMotorA || !rgbLight) {
+  if (!encodedMotorA || !encodedMotorB) {
     return;
   }
 
-  if (encodedMotorA.busy) {
+  if (encodedMotorA.position !== undefined) {
+    console.log('Position A:', encodedMotorA.position);
+  }
+
+  if (encodedMotorB.position !== undefined) {
+    console.log('Position B:', encodedMotorB.position);
+  }
+});
+
+autorun(() => {
+  const {encodedMotorAB, rgbLight} = robot;
+
+  if (!encodedMotorAB || !rgbLight) {
+    return;
+  }
+
+  if (encodedMotorAB.busy) {
     rgbLight.setColor({red: 255, green: 0, blue: 0});
   } else {
     rgbLight.setColor({red: 0, green: 255, blue: 0});
 
-    if (encodedMotorA.mode !== 'Position') {
-      encodedMotorA.setMode('Position');
-    } else {
-      encodedMotorA.runWithSpeedForDuration(100, 1000);
-    }
+    encodedMotorAB.runWithSpeedForDuration(100, 100, 1000);
   }
 });

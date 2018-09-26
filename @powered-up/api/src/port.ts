@@ -7,7 +7,13 @@ import {
   ValueInput
 } from '@powered-up/protocol';
 import {action, autorun, observable} from 'mobx';
-import {Device, EncodedMotor, Motor, RGBLight} from './devices';
+import {
+  Device,
+  EncodedDualMotor,
+  EncodedMotor,
+  Motor,
+  RGBLight
+} from './devices';
 import {Hub} from './hub';
 
 export class Port {
@@ -66,9 +72,11 @@ export class Port {
     switch (deviceInfo.deviceType) {
       case DeviceType.EncodedMotor:
       case DeviceType.InternalEncodedMotor: {
-        if (deviceInfo.kind === 'real') {
-          this.device = new EncodedMotor(this);
-        }
+        this.device =
+          deviceInfo.kind === 'real'
+            ? new EncodedMotor(this)
+            : new EncodedDualMotor(this);
+
         break;
       }
       case DeviceType.Motor: {
