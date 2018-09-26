@@ -1,3 +1,4 @@
+export * from './encoded-dual-motor-service';
 export * from './encoded-motor-service';
 export * from './hub-service';
 export * from './motor-service';

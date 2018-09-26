@@ -8,14 +8,10 @@ import {
 import {PortService} from './port-service';
 
 export class EncodedMotorService extends PortService<EncodedMotorModeType> {
-  public constructor(
-    portType: number,
-    private readonly maxPower: number = 100
-  ) {
-    super(portType);
-  }
-
-  public parseValue(modeType: EncodedMotorModeType, value: Buffer): number {
+  public static parseValue(
+    modeType: EncodedMotorModeType,
+    value: Buffer
+  ): number {
     switch (modeType) {
       case EncodedMotorModeType.Position: {
         return value.readInt32LE(0);
@@ -29,6 +25,48 @@ export class EncodedMotorService extends PortService<EncodedMotorModeType> {
     }
   }
 
+  public constructor(portType: number, private readonly maxPower: number) {
+    super(portType);
+  }
+
+  public setAccelerationDuration(
+    duration: number,
+    accDecProfileType: EncodedMotorAccDecProfileType
+  ): CommandOutput {
+    const commandPayload = Buffer.alloc(3);
+
+    commandPayload.writeUInt16LE(duration, 0);
+    commandPayload.writeUInt8(accDecProfileType, 2);
+
+    return this.executeCommand(
+      CommandType.EncodedMotorSetAccelerationDuration,
+      commandPayload
+    );
+  }
+
+  public setDecelerationDuration(
+    duration: number,
+    accDecProfileType: EncodedMotorAccDecProfileType
+  ): CommandOutput {
+    const commandPayload = Buffer.alloc(3);
+
+    commandPayload.writeUInt16LE(duration, 0);
+    commandPayload.writeUInt8(accDecProfileType, 2);
+
+    return this.executeCommand(
+      CommandType.EncodedMotorSetDecelerationDuration,
+      commandPayload
+    );
+  }
+
+  public setPosition(position: number): CommandOutput {
+    const value = Buffer.alloc(4);
+
+    value.writeInt32LE(position, 0);
+
+    return this.setValueForMode(EncodedMotorModeType.Position, value);
+  }
+
   public brake(): CommandOutput {
     return this.runWithPower(127);
   }
@@ -38,15 +76,7 @@ export class EncodedMotorService extends PortService<EncodedMotorModeType> {
   }
 
   public hold(): CommandOutput {
-    return this.runWithSpeed(0);
-  }
-
-  public resetPosition(position: number = 0): CommandOutput {
-    const value = Buffer.alloc(4);
-
-    value.writeInt32LE(position, 0);
-
-    return this.setValueForMode(EncodedMotorModeType.Position, value);
+    return this.runWithSpeed(0, EncodedMotorAccDecProfileType.None);
   }
 
   public runWithPower(power: number): CommandOutput {
@@ -59,7 +89,7 @@ export class EncodedMotorService extends PortService<EncodedMotorModeType> {
 
   public runWithSpeed(
     speed: number,
-    accDecProfileType: EncodedMotorAccDecProfileType = EncodedMotorAccDecProfileType.Start
+    accDecProfileType: EncodedMotorAccDecProfileType
   ): CommandOutput {
     const commandPayload = Buffer.alloc(3);
 
@@ -77,7 +107,7 @@ export class EncodedMotorService extends PortService<EncodedMotorModeType> {
     speed: number,
     distance: number,
     endStateType: EncodedMotorEndStateType,
-    accDecProfileType: EncodedMotorAccDecProfileType = EncodedMotorAccDecProfileType.Both
+    accDecProfileType: EncodedMotorAccDecProfileType
   ): CommandOutput {
     const commandPayload = Buffer.alloc(8);
 
@@ -97,7 +127,7 @@ export class EncodedMotorService extends PortService<EncodedMotorModeType> {
     speed: number,
     duration: number,
     endStateType: EncodedMotorEndStateType,
-    accDecProfileType: EncodedMotorAccDecProfileType = EncodedMotorAccDecProfileType.Both
+    accDecProfileType: EncodedMotorAccDecProfileType
   ): CommandOutput {
     const commandPayload = Buffer.alloc(6);
 
@@ -117,7 +147,7 @@ export class EncodedMotorService extends PortService<EncodedMotorModeType> {
     speed: number,
     position: number,
     endStateType: EncodedMotorEndStateType,
-    accDecProfileType: EncodedMotorAccDecProfileType = EncodedMotorAccDecProfileType.Both
+    accDecProfileType: EncodedMotorAccDecProfileType
   ): CommandOutput {
     const commandPayload = Buffer.alloc(8);
 
@@ -129,36 +159,6 @@ export class EncodedMotorService extends PortService<EncodedMotorModeType> {
 
     return this.executeCommand(
       CommandType.EncodedMotorRunWithSpeedToPosition,
-      commandPayload
-    );
-  }
-
-  public setAccelerationDuration(
-    duration: number,
-    accDecProfileType: EncodedMotorAccDecProfileType = EncodedMotorAccDecProfileType.Start
-  ): CommandOutput {
-    const commandPayload = Buffer.alloc(3);
-
-    commandPayload.writeUInt16LE(duration, 0);
-    commandPayload.writeUInt8(accDecProfileType, 2);
-
-    return this.executeCommand(
-      CommandType.EncodedMotorSetAccelerationDuration,
-      commandPayload
-    );
-  }
-
-  public setDecelerationDuration(
-    duration: number,
-    accDecProfileType: EncodedMotorAccDecProfileType = EncodedMotorAccDecProfileType.End
-  ): CommandOutput {
-    const commandPayload = Buffer.alloc(3);
-
-    commandPayload.writeUInt16LE(duration, 0);
-    commandPayload.writeUInt8(accDecProfileType, 2);
-
-    return this.executeCommand(
-      CommandType.EncodedMotorSetDecelerationDuration,
       commandPayload
     );
   }

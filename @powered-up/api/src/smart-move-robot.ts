@@ -1,5 +1,5 @@
 import {computed} from 'mobx';
-import {EncodedMotor, RGBLight} from './devices';
+import {EncodedDualMotor, EncodedMotor, RGBLight} from './devices';
 import {HubManager} from './hub-manager';
 import {Robot} from './robot';
 import {SmartMoveHub} from './smart-move-hub';
@@ -10,6 +10,7 @@ export class SmartMoveRobot extends Robot<SmartMoveHub> {
 
     this.observeDeviceError(() => this.encodedMotorA);
     this.observeDeviceError(() => this.encodedMotorB);
+    this.observeDeviceError(() => this.encodedMotorAB);
     this.observeDeviceError(() => this.encodedMotorC);
     this.observeDeviceError(() => this.encodedMotorD);
     this.observeDeviceError(() => this.rgbLight);
@@ -23,6 +24,11 @@ export class SmartMoveRobot extends Robot<SmartMoveHub> {
   @computed
   public get encodedMotorB(): EncodedMotor | undefined {
     return this.getDevice(hub => hub.encodedMotorB, EncodedMotor.is);
+  }
+
+  @computed
+  public get encodedMotorAB(): EncodedDualMotor | undefined {
+    return this.getDevice(hub => hub.encodedMotorAB, EncodedDualMotor.is);
   }
 
   @computed

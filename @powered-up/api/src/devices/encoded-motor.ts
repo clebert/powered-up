@@ -25,7 +25,7 @@ export class EncodedMotor extends Device {
       return undefined;
     }
 
-    return rawValue && this.service.parseValue(modeType, rawValue);
+    return rawValue && EncodedMotorService.parseValue(modeType, rawValue);
   }
 
   @computed
@@ -36,7 +36,7 @@ export class EncodedMotor extends Device {
       return undefined;
     }
 
-    return rawValue && this.service.parseValue(modeType, rawValue);
+    return rawValue && EncodedMotorService.parseValue(modeType, rawValue);
   }
 
   @computed
@@ -47,7 +47,7 @@ export class EncodedMotor extends Device {
       return undefined;
     }
 
-    return rawValue && this.service.parseValue(modeType, rawValue);
+    return rawValue && EncodedMotorService.parseValue(modeType, rawValue);
   }
 
   @computed
@@ -65,6 +65,10 @@ export class EncodedMotor extends Device {
     this.send(this.service.setMode(EncodedMotorModeType[mode]));
   }
 
+  public setPosition(position: number): void {
+    this.send(this.service.setPosition(position));
+  }
+
   public brake(): void {
     this.send(this.service.brake());
   }
@@ -75,10 +79,6 @@ export class EncodedMotor extends Device {
 
   public hold(): void {
     this.send(this.service.hold());
-  }
-
-  public resetPosition(position: number = 0): void {
-    this.send(this.service.resetPosition(position));
   }
 
   public runWithPower(power: number): void {
