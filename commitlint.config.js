@@ -2,7 +2,11 @@ const {readdirSync} = require('fs');
 const {join} = require('path');
 
 const dependabotScopes = process.env.CI === 'true' ? ['deps', 'deps-dev'] : [];
-const pkgScopes = readdirSync(join(__dirname, '@powered-up'));
+
+const pkgScopes = readdirSync(join(__dirname, '@powered-up')).filter(
+  scope => !/^\./.test(scope)
+);
+
 const scopes = ['all', ...dependabotScopes, ...pkgScopes];
 
 module.exports = {
