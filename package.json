@@ -6,7 +6,6 @@
     "@powered-up/*"
   ],
   "scripts": {
-    "commitmsg": "commitlint --edit",
     "clean": "autosrc --verbose clean",
     "pretest": "autosrc --verbose all",
     "test": "run-s test:*",
@@ -15,35 +14,6 @@
     "watch": "autosrc --verbose --watch all",
     "start": "DEBUG=@powered-up/* node @powered-up/demo/lib/index.js"
   },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "modulePathIgnorePatterns": [
-      "/lib/"
-    ],
-    "testMatch": [
-      "<rootDir>/@powered-up/*/src/**/*.test.ts"
-    ],
-    "transform": {
-      ".ts": "ts-jest"
-    },
-    "testURL": "http://localhost",
-    "collectCoverage": false,
-    "collectCoverageFrom": [
-      "**/@powered-up/*/src/**/*.ts"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      }
-    }
-  },
   "devDependencies": {
     "@commitlint/cli": "^7.1.2",
     "@commitlint/config-angular": "^7.1.2",
@@ -51,7 +21,7 @@
     "@types/jest": "^23.3.2",
     "@types/node": "^10.11.0",
     "autosrc": "^0.12.0",
-    "husky": "^0.14.3",
+    "husky": "^1.0.0",
     "jest": "^23.6.0",
     "lerna": "^3.4.0",
     "npm-run-all": "^4.1.3",
