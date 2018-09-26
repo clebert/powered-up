@@ -5237,7 +5237,7 @@ preserve@^0.2.0:
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
   integrity sha1-gV7R9uvGWSb4ZbMQwHE7yzMVzks=
 
-prettier@^1.14.2, prettier@^1.14.3:
+prettier@^1.14.3:
   version "1.14.3"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.14.3.tgz#90238dd4c0684b7edce5f83b0fb7328e48bd0895"
   integrity sha512-qZDVnCrnpsRJJq5nSsiHCE3BYMED2OtsI+cmzIzF1QIfqm5ALf8tEJcO27zV1gKNKRPdhjO0dNWnrzssDQ1tFg==
@@ -6356,10 +6356,10 @@ trim-right@^1.0.1:
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
   integrity sha1-yy4SAwZ+DI3h9hQJS5/kVwTqYAM=
 
-ts-config@^20.6.0:
-  version "20.6.0"
-  resolved "https://registry.yarnpkg.com/ts-config/-/ts-config-20.6.0.tgz#86ed34cf3ac826a44fe16306aa41759382b3fe05"
-  integrity sha512-gx/MroHIKYbW9OetikqLFVGpqvR6mXlTt2ugigENTy8SgKlt9WEK3pz6Knh/DKv/qkUmV1IHfp+hp8Uk/AH7tw==
+ts-config@^20.7.0:
+  version "20.7.0"
+  resolved "https://registry.yarnpkg.com/ts-config/-/ts-config-20.7.0.tgz#f5678661f50697f4440e18b5d991774069f55f8b"
+  integrity sha512-oI9ysHb5bXlJDuU1lmORe6vro/zmaYES4G/2Xp+3nQ9qCKo6qyDC5ci8CTJbrDLKij+2VBp90Y8RMpQB8FrMQA==
   dependencies:
     "@oclif/command" "^1.5.1"
     "@oclif/config" "^1.7.6"
@@ -6368,7 +6368,7 @@ ts-config@^20.6.0:
     common-tags "^1.8.0"
     globby "^8.0.1"
     json-diff "^0.5.2"
-    prettier "^1.14.2"
+    prettier "^1.14.3"
     semver "^5.5.1"
 
 ts-jest@^23.10.1:
