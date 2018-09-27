@@ -19,8 +19,8 @@ export enum DeviceType {
   Motor = 1,
   SystemTrainMotor = 2,
   SystemTrainLight = 8,
-  Voltage = 20,
-  Current = 21,
+  VoltageSensor = 20,
+  CurrentSensor = 21,
   PiezoTonePlayer = 22,
   RGBLight = 23,
   TiltSensor = 34,
@@ -28,7 +28,7 @@ export enum DeviceType {
   VisionSensor = 37,
   EncodedMotor = 38,
   InternalEncodedMotor = 39,
-  InternalTiltSensorThreeAxis = 40,
+  InternalTiltSensor = 40,
   DTMotor = 41,
   SoundPlayer = 42,
   ColorSensor = 43,
@@ -104,8 +104,8 @@ export enum SmartHubPortType {
   A = 0,
   B = 1,
   RGBLight = 50,
-  Current = 59,
-  Voltage = 60
+  CurrentSensor = 59,
+  VoltageSensor = 60
 }
 
 export enum SmartMoveHubPortType {
@@ -115,9 +115,9 @@ export enum SmartMoveHubPortType {
   EncodedMotorA = 55,
   EncodedMotorB = 56,
   EncodedMotorAB = 57,
-  TiltSensorThreeAxis = 58,
-  Current = 59,
-  Voltage = 60
+  TiltSensor = 58,
+  CurrentSensor = 59,
+  VoltageSensor = 60
 }
 
 export enum MotorModeType {
@@ -160,4 +160,12 @@ export enum RGBLightDiscreteColorType {
   Orange = 8,
   Red = 9,
   White = 10
+}
+
+export enum VoltageSensorModeType {
+  Millivolts = 0
+}
+
+export enum CurrentSensorModeType {
+  Milliamps = 0
 }

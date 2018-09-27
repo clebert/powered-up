@@ -4,8 +4,17 @@ import {CommandType} from '../types';
 export abstract class PortService<TModeType extends number> {
   public constructor(public readonly portType: number) {}
 
-  public setMode(modeType: TModeType): ModeOutput {
-    return new ModeOutput(this.portType, modeType, 1, true);
+  public setMode(
+    modeType: TModeType,
+    valueReportThresholdDelta: number,
+    valueReportEnabled: boolean
+  ): ModeOutput {
+    return new ModeOutput(
+      this.portType,
+      modeType,
+      valueReportThresholdDelta,
+      valueReportEnabled
+    );
   }
 
   protected executeCommand(

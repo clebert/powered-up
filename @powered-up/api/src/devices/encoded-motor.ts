@@ -6,16 +6,22 @@ import {
 } from '@powered-up/protocol';
 import {computed} from 'mobx';
 import {Device} from './device';
+import {Sensor} from './sensor';
 
-export type EndState = 'Braking' | 'Drifting' | 'Holding';
-export type Mode = 'Position' | 'Power' | 'Speed';
+export type EncodedMotorEndState = 'Braking' | 'Drifting' | 'Holding';
+export type EncodedMotorMode = 'Position' | 'Power' | 'Speed';
 
-export class EncodedMotor extends Device {
+export class EncodedMotor extends Sensor<
+  EncodedMotorMode,
+  EncodedMotorModeType,
+  EncodedMotorService
+> {
   public static is(device?: Device): device is EncodedMotor {
     return device instanceof EncodedMotor;
   }
 
-  private readonly service = new EncodedMotorService(this.portType, 100);
+  protected readonly service = new EncodedMotorService(this.port.portType, 100);
+  protected readonly valueReportThresholdDelta = 1;
 
   @computed
   public get position(): number | undefined {
@@ -50,21 +56,6 @@ export class EncodedMotor extends Device {
     return rawValue && EncodedMotorService.parseValue(modeType, rawValue);
   }
 
-  @computed
-  public get mode(): Mode | undefined {
-    const {modeType} = this;
-
-    if (modeType === undefined) {
-      return;
-    }
-
-    return EncodedMotorModeType[modeType] as Mode;
-  }
-
-  public setMode(mode: Mode): void {
-    this.send(this.service.setMode(EncodedMotorModeType[mode]));
-  }
-
   public setPosition(position: number): void {
     this.send(this.service.setPosition(position));
   }
@@ -94,7 +85,7 @@ export class EncodedMotor extends Device {
   public runWithSpeedForDistance(
     speed: number,
     distance: number,
-    endState: EndState = 'Braking'
+    endState: EncodedMotorEndState = 'Braking'
   ): void {
     this.send(
       this.service.runWithSpeedForDistance(
@@ -109,7 +100,7 @@ export class EncodedMotor extends Device {
   public runWithSpeedForDuration(
     speed: number,
     duration: number,
-    endState: EndState = 'Braking'
+    endState: EncodedMotorEndState = 'Braking'
   ): void {
     this.send(
       this.service.runWithSpeedForDuration(
@@ -124,7 +115,7 @@ export class EncodedMotor extends Device {
   public runWithSpeedToPosition(
     speed: number,
     position: number,
-    endState: EndState = 'Braking'
+    endState: EncodedMotorEndState = 'Braking'
   ): void {
     this.send(
       this.service.runWithSpeedToPosition(
@@ -134,5 +125,13 @@ export class EncodedMotor extends Device {
         EncodedMotorAccDecProfileType.None
       )
     );
+  }
+
+  protected toMode(modeType: EncodedMotorModeType): EncodedMotorMode {
+    return EncodedMotorModeType[modeType] as EncodedMotorMode;
+  }
+
+  protected toModeType(mode: EncodedMotorMode): EncodedMotorModeType {
+    return EncodedMotorModeType[mode];
   }
 }

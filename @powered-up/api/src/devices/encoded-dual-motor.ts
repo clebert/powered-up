@@ -4,14 +4,17 @@ import {
   EncodedMotorEndStateType
 } from '@powered-up/protocol';
 import {Device} from './device';
-import {EndState} from './encoded-motor';
+import {EncodedMotorEndState} from './encoded-motor';
 
 export class EncodedDualMotor extends Device {
   public static is(device?: Device): device is EncodedDualMotor {
     return device instanceof EncodedDualMotor;
   }
 
-  private readonly service = new EncodedDualMotorService(this.portType, 100);
+  protected readonly service = new EncodedDualMotorService(
+    this.port.portType,
+    100
+  );
 
   public setPosition(positionA: number, positionB: number): void {
     this.send(this.service.setPosition(positionA, positionB));
@@ -47,7 +50,7 @@ export class EncodedDualMotor extends Device {
     speedA: number,
     speedB: number,
     distance: number,
-    endState: EndState = 'Braking'
+    endState: EncodedMotorEndState = 'Braking'
   ): void {
     this.send(
       this.service.runWithSpeedForDistance(
@@ -64,7 +67,7 @@ export class EncodedDualMotor extends Device {
     speedA: number,
     speedB: number,
     duration: number,
-    endState: EndState = 'Braking'
+    endState: EncodedMotorEndState = 'Braking'
   ): void {
     this.send(
       this.service.runWithSpeedForDuration(
@@ -81,7 +84,7 @@ export class EncodedDualMotor extends Device {
     speed: number,
     positionA: number,
     positionB: number,
-    endState: EndState = 'Braking'
+    endState: EncodedMotorEndState = 'Braking'
   ): void {
     this.send(
       this.service.runWithSpeedToPosition(

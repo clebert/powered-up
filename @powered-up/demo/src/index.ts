@@ -9,6 +9,30 @@ autorun(() => {
 });
 
 autorun(() => {
+  const {currentSensor, voltageSensor} = robot;
+
+  if (!currentSensor || !voltageSensor) {
+    return;
+  }
+
+  if (currentSensor.mode !== 'Milliamps') {
+    currentSensor.setMode('Milliamps');
+  }
+
+  if (voltageSensor.mode !== 'Millivolts') {
+    voltageSensor.setMode('Millivolts');
+  }
+
+  if (currentSensor.milliamps !== undefined) {
+    console.log('Milliamps:', currentSensor.milliamps);
+  }
+
+  if (voltageSensor.millivolts !== undefined) {
+    console.log('Millivolts:', voltageSensor.millivolts);
+  }
+});
+
+autorun(() => {
   const {encodedMotorA, encodedMotorB} = robot;
 
   if (!encodedMotorA || !encodedMotorB) {
@@ -21,14 +45,6 @@ autorun(() => {
 
   if (!encodedMotorB.busy && encodedMotorB.mode !== 'Position') {
     encodedMotorB.setMode('Position');
-  }
-});
-
-autorun(() => {
-  const {encodedMotorA, encodedMotorB} = robot;
-
-  if (!encodedMotorA || !encodedMotorB) {
-    return;
   }
 
   if (encodedMotorA.position !== undefined) {

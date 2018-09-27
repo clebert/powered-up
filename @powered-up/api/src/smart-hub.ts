@@ -2,7 +2,7 @@ import {SmartHubPortType} from '@powered-up/protocol';
 import {Hub} from './hub';
 import {Port} from './port';
 
-const {A, B, RGBLight, Current, Voltage} = SmartHubPortType;
+const {A, B, RGBLight, CurrentSensor, VoltageSensor} = SmartHubPortType;
 
 /**
  * Smart Hub 2 I/O
@@ -22,6 +22,6 @@ export class SmartHub extends Hub {
   public readonly a = new Port(A, this);
   public readonly b = new Port(B, this);
   public readonly rgbLight = new Port(RGBLight, this);
-  public readonly current = new Port(Current, this);
-  public readonly voltage = new Port(Voltage, this);
+  public readonly currentSensor = new Port(CurrentSensor, this);
+  public readonly voltageSensor = new Port(VoltageSensor, this);
 }
