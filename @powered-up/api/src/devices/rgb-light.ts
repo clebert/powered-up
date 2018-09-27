@@ -6,10 +6,10 @@ export class RGBLight extends Device {
     return device instanceof RGBLight;
   }
 
-  private readonly service = new RGBLightService(this.portType);
+  protected readonly service = new RGBLightService(this.port.portType);
 
   public setColor(color: Color): void {
-    this.send(this.service.setMode(RGBLightModeType.AbsoluteColor));
+    this.send(this.service.setMode(RGBLightModeType.AbsoluteColor, 1, false));
     this.send(this.service.setAbsoluteColor(color));
   }
 }

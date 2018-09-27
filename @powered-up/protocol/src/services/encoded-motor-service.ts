@@ -10,17 +10,17 @@ import {PortService} from './port-service';
 export class EncodedMotorService extends PortService<EncodedMotorModeType> {
   public static parseValue(
     modeType: EncodedMotorModeType,
-    value: Buffer
+    rawValue: Buffer
   ): number {
     switch (modeType) {
       case EncodedMotorModeType.Position: {
-        return value.readInt32LE(0);
+        return rawValue.readInt32LE(0);
       }
       case EncodedMotorModeType.Power: {
-        return value.readInt8(0);
+        return rawValue.readInt8(0);
       }
       case EncodedMotorModeType.Speed: {
-        return value.readInt8(0);
+        return rawValue.readInt8(0);
       }
     }
   }

@@ -6,7 +6,7 @@ export class Motor extends Device {
     return device instanceof Motor;
   }
 
-  private readonly service = new MotorService(this.portType);
+  protected readonly service = new MotorService(this.port.portType);
 
   public brake(): void {
     this.send(this.service.brake());

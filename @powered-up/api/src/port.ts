@@ -8,11 +8,13 @@ import {
 } from '@powered-up/protocol';
 import {action, autorun, observable} from 'mobx';
 import {
+  CurrentSensor,
   Device,
   EncodedDualMotor,
   EncodedMotor,
   Motor,
-  RGBLight
+  RGBLight,
+  VoltageSensor
 } from './devices';
 import {Hub} from './hub';
 
@@ -85,6 +87,14 @@ export class Port {
       }
       case DeviceType.RGBLight: {
         this.device = new RGBLight(this);
+        break;
+      }
+      case DeviceType.CurrentSensor: {
+        this.device = new CurrentSensor(this);
+        break;
+      }
+      case DeviceType.VoltageSensor: {
+        this.device = new VoltageSensor(this);
       }
     }
   }

@@ -5,7 +5,7 @@ import {
   Output,
   ValueInput
 } from '@powered-up/protocol';
-import {action, autorun, observable} from 'mobx';
+import {IReactionDisposer, action, autorun, observable} from 'mobx';
 import {Port} from '../port';
 
 export abstract class Device {
@@ -18,18 +18,16 @@ export abstract class Device {
   @observable
   public latestError?: Error;
 
-  protected readonly portType: number;
-
   @observable
   protected modeType?: number;
 
   @observable
   protected rawValue?: Buffer;
 
-  public constructor(private readonly port: Port) {
-    this.portType = port.portType;
+  private readonly disposer: IReactionDisposer;
 
-    autorun(() => {
+  public constructor(protected readonly port: Port) {
+    this.disposer = autorun(() => {
       const {latestInput} = port;
 
       if (latestInput instanceof CommandInput) {
@@ -44,35 +42,32 @@ export abstract class Device {
 
   @action
   public dispose(): void {
+    if (!this.disposed) {
+      this.disposer();
+    }
+
     this.disposed = true;
   }
 
   @action
   protected send(output: Output): void {
     if (this.disposed) {
-      this.handleError(
-        new Error(
-          'Unable to send message, the device is already disposed of. Please do not store references to a device outside a reaction.'
-        )
+      throw new Error(
+        'Unable to send message, the device is already disposed of. Please do not store references to a device outside a reaction.'
       );
-    } else {
-      if (output instanceof CommandOutput) {
-        this.busy = true;
-      }
-
-      this.port.hub.send(output);
     }
-  }
 
-  @action
-  private handleError(error: Error): void {
-    this.latestError = error;
+    if (output instanceof CommandOutput) {
+      this.busy = true;
+    }
+
+    this.port.hub.send(output);
   }
 
   @action
   private handleCommandInput(input: CommandInput): void {
     if (input.commandDiscarded) {
-      this.handleError(new Error('Command discarded.'));
+      this.latestError = new Error('Command discarded.');
     }
 
     this.busy = input.portBusy;

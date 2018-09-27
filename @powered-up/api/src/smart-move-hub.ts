@@ -9,9 +9,9 @@ const {
   EncodedMotorA,
   EncodedMotorB,
   EncodedMotorAB,
-  TiltSensorThreeAxis,
-  Current,
-  Voltage
+  TiltSensor,
+  CurrentSensor,
+  VoltageSensor
 } = SmartMoveHubPortType;
 
 /**
@@ -35,7 +35,7 @@ export class SmartMoveHub extends Hub {
   public readonly encodedMotorA = new Port(EncodedMotorA, this);
   public readonly encodedMotorB = new Port(EncodedMotorB, this);
   public readonly encodedMotorAB = new Port(EncodedMotorAB, this);
-  public readonly tiltSensorThreeAxis = new Port(TiltSensorThreeAxis, this);
-  public readonly current = new Port(Current, this);
-  public readonly voltage = new Port(Voltage, this);
+  public readonly tiltSensor = new Port(TiltSensor, this);
+  public readonly currentSensor = new Port(CurrentSensor, this);
+  public readonly voltageSensor = new Port(VoltageSensor, this);
 }

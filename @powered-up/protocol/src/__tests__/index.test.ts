@@ -167,36 +167,36 @@ describe('#parseInput', () => {
       });
     });
 
-    test('TiltSensorThreeAxis => InternalTiltSensorThreeAxis', () => {
+    test('TiltSensor => InternalTiltSensor', () => {
       const data = parseHex('0f 00 04 3a 01 28 00 00 00 00 10 00 00 00 02'); // real
 
       expect(parseInput(data)).toEqual({
         data,
-        portType: SmartMoveHubPortType.TiltSensorThreeAxis,
+        portType: SmartMoveHubPortType.TiltSensor,
         deviceInfo: {
           kind: 'real',
-          deviceType: DeviceType.InternalTiltSensorThreeAxis
+          deviceType: DeviceType.InternalTiltSensor
         }
       });
     });
 
-    test('Current => Current', () => {
+    test('CurrentSensor => CurrentSensor', () => {
       const data = parseHex('0f 00 04 3b 01 15 00 02 00 00 00 02 00 00 00'); // real
 
       expect(parseInput(data)).toEqual({
         data,
-        portType: SmartMoveHubPortType.Current,
-        deviceInfo: {kind: 'real', deviceType: DeviceType.Current}
+        portType: SmartMoveHubPortType.CurrentSensor,
+        deviceInfo: {kind: 'real', deviceType: DeviceType.CurrentSensor}
       });
     });
 
-    test('Voltage => Voltage', () => {
+    test('VoltageSensor => VoltageSensor', () => {
       const data = parseHex('0f 00 04 3c 01 14 00 02 00 00 00 02 00 00 00'); // real
 
       expect(parseInput(data)).toEqual({
         data,
-        portType: SmartMoveHubPortType.Voltage,
-        deviceInfo: {kind: 'real', deviceType: DeviceType.Voltage}
+        portType: SmartMoveHubPortType.VoltageSensor,
+        deviceInfo: {kind: 'real', deviceType: DeviceType.VoltageSensor}
       });
     });
 
@@ -269,23 +269,23 @@ describe('#parseInput', () => {
       });
     });
 
-    test('Current => Current', () => {
+    test('CurrentSensor => CurrentSensor', () => {
       const data = parseHex('0f 00 04 3b 01 15 00 02 00 00 00 02 00 00 00'); // real
 
       expect(parseInput(data)).toEqual({
         data,
-        portType: SmartHubPortType.Current,
-        deviceInfo: {kind: 'real', deviceType: DeviceType.Current}
+        portType: SmartHubPortType.CurrentSensor,
+        deviceInfo: {kind: 'real', deviceType: DeviceType.CurrentSensor}
       });
     });
 
-    test('Voltage => Voltage', () => {
+    test('VoltageSensor => VoltageSensor', () => {
       const data = parseHex('0f 00 04 3c 01 14 00 02 00 00 00 02 00 00 00'); // real
 
       expect(parseInput(data)).toEqual({
         data,
-        portType: SmartHubPortType.Voltage,
-        deviceInfo: {kind: 'real', deviceType: DeviceType.Voltage}
+        portType: SmartHubPortType.VoltageSensor,
+        deviceInfo: {kind: 'real', deviceType: DeviceType.VoltageSensor}
       });
     });
 
