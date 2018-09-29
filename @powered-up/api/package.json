@@ -1,6 +1,6 @@
 {
   "name": "@powered-up/api",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A reactive library for controlling LEGO® Powered Up devices.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
@@ -20,8 +20,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@powered-up/ble": "^0.0.0",
-    "@powered-up/protocol": "^0.0.0",
+    "@powered-up/ble": "^0.1.0",
+    "@powered-up/protocol": "^0.1.0",
     "mobx": "^5.1.2"
   }
 }
