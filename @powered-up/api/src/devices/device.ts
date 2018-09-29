@@ -76,6 +76,7 @@ export abstract class Device {
   @action
   private handleModeInput(input: ModeInput): void {
     this.modeType = input.modeType;
+    this.rawValue = undefined;
   }
 
   @action
