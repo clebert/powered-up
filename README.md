@@ -1,4 +1,4 @@
-# Powered Up Node.js SDK
+# PoweredUpJS
 
 [![Build Status](https://travis-ci.org/clebert/powered-up.svg?branch=master)](https://travis-ci.org/clebert/powered-up)
 [![Package Version](https://img.shields.io/npm/v/@powered-up/api.svg)](https://yarnpkg.com/en/package/@powered-up/api)
