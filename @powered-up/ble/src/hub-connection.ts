@@ -11,15 +11,19 @@ export class HubConnection {
   public readonly hubName: string;
   public readonly hubType: number;
 
+  /** @observable */
   @observable
   public latestError?: Error;
 
+  /** @observable */
   @observable
   public latestInput?: Input;
 
+  /** @observable */
   @observable
   private characteristic?: Characteristic;
 
+  /** @observable */
   @observable
   private connected = false;
 
@@ -43,6 +47,7 @@ export class HubConnection {
     });
   }
 
+  /** @computed */
   @computed
   public get ready(): boolean {
     return this.connected && this.characteristic !== undefined;

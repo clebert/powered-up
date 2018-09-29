@@ -5,9 +5,11 @@ import noble, {Peripheral} from 'noble';
 import {HubConnection} from './hub-connection';
 
 export class BLEManager {
+  /** @observable */
   @observable.shallow
   private readonly hubConnectionByHubId: Map<string, HubConnection> = new Map();
 
+  /** @observable */
   @observable
   private state = 'unknown';
 
@@ -16,11 +18,13 @@ export class BLEManager {
     noble.on('stateChange', this.handleStateChange);
   }
 
+  /** @computed */
   @computed
   public get ready(): boolean {
     return this.state === 'poweredOn';
   }
 
+  /** @computed */
   @computed
   public get hubConnections(): HubConnection[] {
     return [...this.hubConnectionByHubId.values()];

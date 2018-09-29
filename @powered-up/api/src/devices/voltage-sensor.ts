@@ -20,6 +20,7 @@ export class VoltageSensor extends Sensor<
   protected readonly service = new VoltageSensorService(this.port.portType);
   protected readonly valueReportThresholdDelta = 30;
 
+  /** @computed */
   @computed
   public get millivolts(): number | undefined {
     const {modeType, rawValue} = this;

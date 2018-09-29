@@ -9,18 +9,23 @@ import {IReactionDisposer, action, autorun, observable} from 'mobx';
 import {Port} from '../port';
 
 export abstract class Device {
+  /** @observable */
   @observable
   public busy = false;
 
+  /** @observable */
   @observable
   public disposed: boolean = false;
 
+  /** @observable */
   @observable
   public latestError?: Error;
 
+  /** @observable */
   @observable
   protected modeType?: number;
 
+  /** @observable */
   @observable
   protected rawValue?: Buffer;
 

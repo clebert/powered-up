@@ -23,6 +23,7 @@ export class EncodedMotor extends Sensor<
   protected readonly service = new EncodedMotorService(this.port.portType, 100);
   protected readonly valueReportThresholdDelta = 1;
 
+  /** @computed */
   @computed
   public get position(): number | undefined {
     const {modeType, rawValue} = this;
@@ -34,6 +35,7 @@ export class EncodedMotor extends Sensor<
     return rawValue && EncodedMotorService.parseValue(modeType, rawValue);
   }
 
+  /** @computed */
   @computed
   public get power(): number | undefined {
     const {modeType, rawValue} = this;
@@ -45,6 +47,7 @@ export class EncodedMotor extends Sensor<
     return rawValue && EncodedMotorService.parseValue(modeType, rawValue);
   }
 
+  /** @computed */
   @computed
   public get speed(): number | undefined {
     const {modeType, rawValue} = this;
