@@ -7,4 +7,5 @@ script:
   - yarn commitlint-travis
   - yarn clean
   - yarn test
+  - git diff --exit-code docs/
   - git diff --exit-code yarn.lock

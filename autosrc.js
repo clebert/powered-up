@@ -19,6 +19,7 @@ function findLocalDependencies(pkg) {
 }
 
 const touch = file => `touch ${file}`;
+const rm = file => `rm -rf ${file}`;
 
 const tslint = (pkg, files) => {
   const config = `@powered-up/${pkg}/tslint.json`;
@@ -30,9 +31,14 @@ const tslint = (pkg, files) => {
   }
 };
 
+const pkgs = readdirSync('@powered-up').filter(pkg => !/^\./.test(pkg));
+
 rules.all = {
   phony: true,
-  prereqs: ['@powered-up/demo/lib']
+  prereqs: [
+    ...pkgs.filter(pkg => pkg !== 'demo').map(pkg => `docs/packages/${pkg}`),
+    '@powered-up/demo/lib'
+  ]
 };
 
 rules.clean = {
@@ -40,12 +46,12 @@ rules.clean = {
   prereqs: ['@powered-up/*/src/**/*.{ts,tsx}'],
   recipe: (_, newerPrereqs) => [
     ...newerPrereqs.map(touch),
-    'rm -rf @powered-up/*/lib',
+    rm('@powered-up/*/lib'),
     touch('package.json')
   ]
 };
 
-for (const pkg of readdirSync('@powered-up').filter(pkg => !/^\./.test(pkg))) {
+for (const pkg of pkgs) {
   rules[`@powered-up/${pkg}/lib`] = {
     prereqs: [
       'node_modules',
@@ -75,9 +81,27 @@ for (const pkg of readdirSync('@powered-up').filter(pkg => !/^\./.test(pkg))) {
     prereqs: ['tslint.json'],
     recipe: target => [touch(target)]
   };
+
+  rules[`docs/packages/${pkg}`] = {
+    prereqs: [
+      'typedoc.js',
+      `@powered-up/${pkg}/README.md`,
+      `@powered-up/${pkg}/lib`
+    ],
+    recipe: target => [
+      rm(target),
+      `yarn typedoc --out ${target} --readme @powered-up/${pkg}/README.md ./@powered-up/${pkg}`,
+      touch(target)
+    ]
+  };
 }
 
 rules.node_modules = {
-  prereqs: ['package.json', '@powered-up/*/package.json', 'yarn.lock'],
+  prereqs: [
+    'autosrc.js',
+    'package.json',
+    '@powered-up/*/package.json',
+    'yarn.lock'
+  ],
   recipe: target => ['yarn install --check-files', touch(target)]
 };
