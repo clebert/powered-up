@@ -4,6 +4,9 @@
 
 > A partial implementation of the LEGO® Powered Up BLE protocol in JavaScript.
 
+**This package is part of
+[PoweredUpJS](https://github.com/clebert/powered-up).**
+
 _Disclaimer: LEGO® is a trademark of the LEGO Group of companies which does not
 sponsor, authorize or endorse this software._
 

@@ -4,6 +4,9 @@
 
 > A reactive library for managing BLE connections to LEGO® Powered Up hubs.
 
+**This package is part of
+[PoweredUpJS](https://github.com/clebert/powered-up).**
+
 _Disclaimer: LEGO® is a trademark of the LEGO Group of companies which does not
 sponsor, authorize or endorse this software._
 
