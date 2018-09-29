@@ -3,6 +3,7 @@ import {
   CurrentSensor,
   EncodedDualMotor,
   EncodedMotor,
+  Motor,
   RGBLight,
   VoltageSensor
 } from './devices';
@@ -19,6 +20,8 @@ export class SmartMoveRobot extends Robot<SmartMoveHub> {
     this.observeDeviceError(() => this.encodedMotorAB);
     this.observeDeviceError(() => this.encodedMotorC);
     this.observeDeviceError(() => this.encodedMotorD);
+    this.observeDeviceError(() => this.motorC);
+    this.observeDeviceError(() => this.motorD);
     this.observeDeviceError(() => this.rgbLight);
     this.observeDeviceError(() => this.currentSensor);
     this.observeDeviceError(() => this.voltageSensor);
@@ -47,6 +50,16 @@ export class SmartMoveRobot extends Robot<SmartMoveHub> {
   @computed
   public get encodedMotorD(): EncodedMotor | undefined {
     return this.getDevice(hub => hub.d, EncodedMotor.is);
+  }
+
+  @computed
+  public get motorC(): Motor | undefined {
+    return this.getDevice(hub => hub.c, Motor.is);
+  }
+
+  @computed
+  public get motorD(): Motor | undefined {
+    return this.getDevice(hub => hub.d, Motor.is);
   }
 
   @computed

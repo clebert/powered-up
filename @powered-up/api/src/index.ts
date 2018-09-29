@@ -10,3 +10,4 @@ export * from './robot';
 export * from './smart-hub';
 export * from './smart-move-hub';
 export * from './smart-move-robot';
+export * from './smart-robot';
