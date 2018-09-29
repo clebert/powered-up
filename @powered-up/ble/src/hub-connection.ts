@@ -4,7 +4,7 @@ import {Input, Output, parseInput} from '@powered-up/protocol';
 import {action, autorun, computed, observable} from 'mobx';
 import {Characteristic, Peripheral, Service} from 'noble';
 import {BLEManager} from './ble-manager';
-import {debug} from './debug';
+import {debug} from './utils/debug';
 
 export class HubConnection {
   public readonly hubId: string;
