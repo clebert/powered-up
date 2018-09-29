@@ -13,12 +13,15 @@ import {action, autorun, computed, observable} from 'mobx';
 export abstract class Hub {
   public readonly id: string;
 
+  /** @observable */
   @observable
   public latestError?: Error;
 
+  /** @observable */
   @observable
   public latestPortInput?: PortInput;
 
+  /** @observable */
   @observable
   public latestPropertyInput?: PropertyInput;
 
@@ -54,6 +57,7 @@ export abstract class Hub {
     });
   }
 
+  /** @computed */
   @computed
   public get connected(): boolean {
     return this.hubConnection.ready && !!this.latestPortInput;

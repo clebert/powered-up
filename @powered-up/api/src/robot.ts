@@ -16,6 +16,7 @@ export abstract class Robot<THub extends Hub> {
     });
   }
 
+  /** @computed */
   @computed
   public get buttonPressed(): boolean {
     const hub = this.hub;
@@ -37,6 +38,7 @@ export abstract class Robot<THub extends Hub> {
     return false;
   }
 
+  /** @computed */
   @computed
   protected get hub(): THub | undefined {
     const hub = this.findHub();

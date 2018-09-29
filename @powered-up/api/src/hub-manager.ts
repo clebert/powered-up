@@ -5,6 +5,7 @@ import {SmartHub} from './smart-hub';
 import {SmartMoveHub} from './smart-move-hub';
 
 export class HubManager {
+  /** @observable */
   @observable.shallow
   private readonly hubById: Map<string, Hub> = new Map();
 
@@ -16,6 +17,7 @@ export class HubManager {
     });
   }
 
+  /** @computed */
   @computed
   public get hubs(): Hub[] {
     return [...this.hubById.values()];

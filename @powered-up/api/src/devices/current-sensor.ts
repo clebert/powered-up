@@ -20,6 +20,7 @@ export class CurrentSensor extends Sensor<
   protected readonly service = new CurrentSensorService(this.port.portType);
   protected readonly valueReportThresholdDelta = 30;
 
+  /** @computed */
   @computed
   public get milliamps(): number | undefined {
     const {modeType, rawValue} = this;

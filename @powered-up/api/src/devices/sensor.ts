@@ -10,6 +10,7 @@ export abstract class Sensor<
   protected abstract readonly service: TService;
   protected abstract readonly valueReportThresholdDelta: number;
 
+  /** @computed */
   @computed
   public get mode(): TMode | undefined {
     const {modeType} = this;

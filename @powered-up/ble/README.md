@@ -29,7 +29,7 @@ npm install @powered-up/ble
 For the BLE connection [noble](https://github.com/noble/noble/issues/791) is
 used, it needs xpc-connection on macOS, which currently cannot be build without
 errors. Until the problem is officially fixed, the following must be added to
-your package.json:
+your `package.json` file:
 
 ```json
 "resolutions": {

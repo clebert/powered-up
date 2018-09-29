@@ -19,9 +19,11 @@ import {
 import {Hub} from './hub';
 
 export class Port {
+  /** @observable */
   @observable
   public device?: Device;
 
+  /** @observable */
   @observable
   public latestInput?: CommandInput | ModeInfoInput | ModeInput | ValueInput;
 
