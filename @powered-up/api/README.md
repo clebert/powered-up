@@ -24,6 +24,19 @@ yarn add @powered-up/api
 npm install @powered-up/api
 ```
 
+### Installation problems under Node 10 on macOS 10.13.4
+
+For the BLE connection [noble](https://github.com/noble/noble/issues/791) is
+used, it needs xpc-connection on macOS, which currently cannot be build without
+errors. Until the problem is officially fixed, the following must be added to
+your package.json:
+
+```json
+"resolutions": {
+  "xpc-connection": "sandeepmistry/node-xpc-connection#pull/26/head"
+}
+```
+
 ---
 
 Copyright (c) 2018-present, Clemens Akens. Released under the terms of the
