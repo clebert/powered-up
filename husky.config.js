@@ -1,5 +1,5 @@
 module.exports = {
   hooks: {
-    'commit-msg': 'npx commitlint --edit'
+    'commit-msg': 'yarn commitlint --edit'
   }
 };

@@ -9,3 +9,12 @@ script:
   - yarn test
   - git diff --exit-code docs/
   - git diff --exit-code yarn.lock
+deploy:
+  provider: script
+  script: scripts/publish.sh
+  skip_cleanup: true
+  on:
+    tags: true
+env:
+  global:
+    secure: MTP4FM+kdYfRf36iWp7CcL4+Ev5Nqw/ivvXMULwJIbN54PcxWKXw1SG/T1efUvgxDzs9akTKvx2oflpX5WmzDw4w56kkuoSqPT7Skf2LNofVbyl6m5ccx+p8xvFWtcgdZiVL7miWHIE9RCj91duW6EsdwDnyyxuBoDKsyD1oqfFIQnzXl77T+XnJLW1gzTFGg8mXy18w5Xj/tRm6E30/R8+I1k6gkgc0zQehsOB92/PqKmuwq4XiMonlwyJsq4dqvwMhBJW8SEVIWsqXIqLQC01wWY3CNB8BeKpAQPBtUQ12mo2LaewGoEtvlEZjhppmnwtG/kkgWsla4Zq7ZOPu+YHnfn51djdRouBJt+GCW/TAeXtCKjS+pUTo3xz08XmyuPJmAELjzbhj+DK0UcWNR3PW8yHNCmINUo1bewozWnpIEJqYilSYFcBwC0z6rSH85WYlnavyPPNKoS/wsSe5zsXYkDAJx/vfa9y41lNGuNDu+Vtr5dI7DFvRLaUWeKZ2q5tig8n3XENRruuMDdBEfY5FzFPDJ0z6YG6jhPniJBll2Q7qSW4QRibtYjLLhxHF9qbmsoCI6bQr3tX9yukww/2M4hebFqMDw7LNF0G2XoUKz9M8JvOgSdJeoYrnPuLCni17Jj5e2P2W1GLxKoSm2MVyCcfcbfTU6UBdvNT3EZk=
