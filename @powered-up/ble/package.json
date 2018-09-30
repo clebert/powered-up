@@ -1,6 +1,6 @@
 {
   "name": "@powered-up/ble",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A reactive library for managing BLE connections to LEGO® Powered Up hubs.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
@@ -24,7 +24,7 @@
     "@types/debug": "^0.0.30"
   },
   "dependencies": {
-    "@powered-up/protocol": "^0.1.0",
+    "@powered-up/protocol": "^0.2.0",
     "debug": "^4.0.1",
     "mobx": "^5.1.2",
     "noble": "^1.9.1"

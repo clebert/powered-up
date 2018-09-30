@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/clebert/powered-up/compare/v0.1.1...v0.2.0) (2018-09-30)
+
+
+### Features
+
+* **api:** add singleton factory method to the HubManager class ([#47](https://github.com/clebert/powered-up/issues/47)) ([7ac84d1](https://github.com/clebert/powered-up/commit/7ac84d1))
+
+
+
+
+
 <a name="0.1.1"></a>
 ## [0.1.1](https://github.com/clebert/powered-up/compare/v0.1.0...v0.1.1) (2018-09-30)
 
