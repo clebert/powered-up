@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/clebert/powered-up/compare/v0.2.0...v0.3.0) (2018-09-30)
+
+
+### Features
+
+* **api:** remove non-working device accessors from the SmartRobot class ([#55](https://github.com/clebert/powered-up/issues/55)) ([82c40b8](https://github.com/clebert/powered-up/commit/82c40b8))
+
+
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/clebert/powered-up/compare/v0.1.1...v0.2.0) (2018-09-30)
 
