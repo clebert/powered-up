@@ -96,6 +96,7 @@ JavaScript.
 ## Related links
 
 - [Powered UP AFOL Community Answers](https://lan.lego.com/news/overview/powered-up-afol-community-answers-r146/)
+- [Reverse engineering the LEGO BOOST Hub](https://github.com/JorgePe/BOOSTreveng)
 
 ---
 
