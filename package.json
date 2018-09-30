@@ -13,7 +13,13 @@
     "test:prettier": "prettier --list-different '**/*.{js,json,md,ts,tsx,yml}'",
     "release": "lerna version --conventional-commits --sign-git-commit --sign-git-tag",
     "watch": "autosrc --verbose --watch @powered-up/demo/lib",
-    "start": "DEBUG=@powered-up/* node @powered-up/demo/lib/index.js"
+    "demo:button": "DEBUG=@powered-up/* node @powered-up/demo/lib/button.js",
+    "demo:current-sensor": "DEBUG=@powered-up/* node @powered-up/demo/lib/current-sensor.js",
+    "demo:encoded-dual-motor": "DEBUG=@powered-up/* node @powered-up/demo/lib/encoded-dual-motor.js",
+    "demo:encoded-motor": "DEBUG=@powered-up/* node @powered-up/demo/lib/encoded-motor.js",
+    "demo:motor": "DEBUG=@powered-up/* node @powered-up/demo/lib/motor.js",
+    "demo:rgb-light": "DEBUG=@powered-up/* node @powered-up/demo/lib/rgb-light.js",
+    "demo:voltage-sensor": "DEBUG=@powered-up/* node @powered-up/demo/lib/voltage-sensor.js"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.1.2",
