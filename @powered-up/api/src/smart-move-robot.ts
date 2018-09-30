@@ -12,7 +12,7 @@ import {Robot} from './robot';
 import {SmartMoveHub} from './smart-move-hub';
 
 export class SmartMoveRobot extends Robot<SmartMoveHub> {
-  public constructor(hubManager: HubManager) {
+  public constructor(hubManager: HubManager = HubManager.getSingleton()) {
     super(hubManager);
 
     this.observeDeviceError(() => this.encodedMotorA);

@@ -1,8 +1,7 @@
-import {HubManager, SmartMoveRobot, SmartRobot} from '@powered-up/api';
+import {SmartMoveRobot, SmartRobot} from '@powered-up/api';
 import {autorun} from 'mobx';
 
-const hubManager = HubManager.getSingleton();
-const moveRobot = new SmartMoveRobot(hubManager);
+const moveRobot = new SmartMoveRobot();
 
 autorun(() => {
   const {rgbLight} = moveRobot;
@@ -14,7 +13,7 @@ autorun(() => {
   rgbLight.setColor({red: 255, green: 0, blue: 0});
 });
 
-const robot = new SmartRobot(hubManager);
+const robot = new SmartRobot();
 
 autorun(() => {
   const {rgbLight} = robot;
