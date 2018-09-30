@@ -1,11 +1,5 @@
 import {computed} from 'mobx';
-import {
-  CurrentSensor,
-  EncodedMotor,
-  Motor,
-  RGBLight,
-  VoltageSensor
-} from './devices';
+import {CurrentSensor, Motor, RGBLight, VoltageSensor} from './devices';
 import {HubManager} from './hub-manager';
 import {Robot} from './robot';
 import {SmartHub} from './smart-hub';
@@ -14,25 +8,11 @@ export class SmartRobot extends Robot<SmartHub> {
   public constructor(hubManager: HubManager) {
     super(hubManager);
 
-    this.observeDeviceError(() => this.encodedMotorA);
-    this.observeDeviceError(() => this.encodedMotorB);
     this.observeDeviceError(() => this.motorA);
     this.observeDeviceError(() => this.motorB);
     this.observeDeviceError(() => this.rgbLight);
     this.observeDeviceError(() => this.currentSensor);
     this.observeDeviceError(() => this.voltageSensor);
-  }
-
-  /** @computed */
-  @computed
-  public get encodedMotorA(): EncodedMotor | undefined {
-    return this.getDevice(hub => hub.a, EncodedMotor.is);
-  }
-
-  /** @computed */
-  @computed
-  public get encodedMotorB(): EncodedMotor | undefined {
-    return this.getDevice(hub => hub.b, EncodedMotor.is);
   }
 
   /** @computed */
