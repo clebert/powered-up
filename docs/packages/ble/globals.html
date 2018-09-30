@@ -934,10 +934,10 @@ yarn add @powered-up/ble</code></pre>
 			<pre><code class="language-sh"><span class="hljs-comment"># Install using npm</span>
 npm install @powered-up/ble</code></pre>
 			<h3 id="installation-problems-under-node-10-on-macos-10-13-4">Installation problems under Node 10 on macOS 10.13.4</h3>
-			<p>For the BLE connection <a href="https://github.com/noble/noble/issues/791">noble</a> is
-				used, it needs xpc-connection on macOS, which currently cannot be build without
-				errors. Until the problem is officially fixed, the following must be added to
-			your <code>package.json</code> file:</p>
+			<p><a href="https://github.com/noble/noble/issues/791">noble</a> is used to establish the BLE
+				connection, it requires xpc-connection on macOS, which currently cannot be
+				installed without errors. Until the problem is officially fixed, the following
+			must be added to your <code>package.json</code> file:</p>
 			<pre><code class="language-json">&quot;resolutions&quot;: {
   &quot;xpc-connection&quot;: &quot;sandeepmistry/node-xpc-connection#pull/26/head&quot;
 }</code></pre>

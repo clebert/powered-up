@@ -11,6 +11,10 @@ import {Sensor} from './sensor';
 export type EncodedMotorEndState = 'Braking' | 'Drifting' | 'Holding';
 export type EncodedMotorMode = 'Position' | 'Power' | 'Speed';
 
+/**
+ * - Rebrickable: https://rebrickable.com/parts/6181852/
+ * - BrickLink: https://www.bricklink.com/v2/catalog/catalogitem.page?P=6181852
+ */
 export class EncodedMotor extends Sensor<
   EncodedMotorMode,
   EncodedMotorModeType,
