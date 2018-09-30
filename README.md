@@ -38,18 +38,17 @@ autorun(() => {
 
 ## Implementation status
 
-|                           | [Smart Move Hub 2 I/O][1] | [Smart Hub 2 I/O][2]   |
-| ------------------------- | ------------------------- | ---------------------- |
-|                           | ([Smart Move Robot][1-1]) | ([Smart Robot][2-1])   |
-| Button                    | ✅ Supported              | ✅ Supported           |
-| [VoltageSensor][3]        | ✅ Supported              | ✅ Supported           |
-| [CurrentSensor][4]        | ✅ Supported              | ✅ Supported           |
-| [RGBLight][5]             | ✅ Supported              | ✅ Supported           |
-| [InternalEncodedMotor][6] | ✅ Supported              | ❌ N/A                 |
-| InternalTiltSensor        | 💤 Not yet implemented    | ❌ N/A                 |
-| [Motor][7]                | ✅ Supported              | ✅ Supported           |
-| [EncodedMotor][6]         | ✅ Supported              | ❌ Not supported       |
-| VisionSensor              | 💤 Not yet implemented    | 💤 Not yet implemented |
+|                           | [Smart Move Hub 2 I/O][1] ([Robot][1-1]) | [Smart Hub 2 I/O][2] ([Robot][2-1]) |
+| ------------------------- | ---------------------------------------- | ----------------------------------- |
+| Button                    | ✅ Supported                             | ✅ Supported                        |
+| [VoltageSensor][3]        | ✅ Supported                             | ✅ Supported                        |
+| [CurrentSensor][4]        | ✅ Supported                             | ✅ Supported                        |
+| [RGBLight][5]             | ✅ Supported                             | ✅ Supported                        |
+| [InternalEncodedMotor][6] | ✅ Supported                             | ❌ N/A                              |
+| InternalTiltSensor        | 💤 Not yet implemented                   | ❌ N/A                              |
+| [Motor][7]                | ✅ Supported                             | ✅ Supported                        |
+| [EncodedMotor][6]         | ✅ Supported                             | ❌ Not supported                    |
+| VisionSensor              | 💤 Not yet implemented                   | 💤 Not yet implemented              |
 
 [1]: https://clebert.github.io/powered-up/packages/api/classes/smartmovehub
 [1-1]: https://clebert.github.io/powered-up/packages/api/classes/smartmoverobot
