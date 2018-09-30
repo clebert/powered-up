@@ -1,8 +1,7 @@
-import {HubManager, SmartMoveRobot} from '@powered-up/api';
+import {SmartMoveRobot} from '@powered-up/api';
 import {autorun} from 'mobx';
 
-const hubManager = HubManager.getSingleton();
-const robot = new SmartMoveRobot(hubManager);
+const robot = new SmartMoveRobot();
 
 autorun(() => {
   const {encodedMotorA} = robot;

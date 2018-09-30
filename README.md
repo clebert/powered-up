@@ -13,26 +13,33 @@ sponsor, authorize or endorse this software._
 Please install the `@powered-up/api` package as described
 [here](https://clebert.github.io/powered-up/packages/api/).
 
-The following example sets the RGB light of a Smart Move Hub (included in the
-LEGO® Boost Set 17101) to red:
+The following example uses a Smart Move Hub (included in the LEGO® Boost
+Set 17101) and activates the built-in motor A while the button is held down:
 
 ```js
 // @ts-check
 
-const {HubManager, SmartMoveRobot} = require('@powered-up/api');
+const {SmartMoveRobot} = require('@powered-up/api');
 const {autorun} = require('mobx');
 
-const hubManager = HubManager.getSingleton();
-const moveRobot = new SmartMoveRobot(hubManager);
+const moveRobot = new SmartMoveRobot();
 
 autorun(() => {
-  const {rgbLight} = moveRobot;
+  const {buttonPressed, encodedMotorA, rgbLight} = moveRobot;
 
-  if (!rgbLight) {
+  if (!encodedMotorA || !rgbLight) {
     return;
   }
 
-  rgbLight.setColor({red: 255, green: 0, blue: 0});
+  if (buttonPressed) {
+    rgbLight.setColor({red: 0, green: 255, blue: 0});
+
+    encodedMotorA.runWithPower(100);
+  } else {
+    rgbLight.setColor({red: 255, green: 0, blue: 0});
+
+    encodedMotorA.brake();
+  }
 });
 ```
 
