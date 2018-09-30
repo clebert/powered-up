@@ -57,7 +57,7 @@ autorun(() => {
 | [InternalEncodedMotor][6] | ✅ Supported                             | ❌ N/A                              |
 | InternalTiltSensor        | 💤 Not yet implemented                   | ❌ N/A                              |
 | [Motor][7]                | ✅ Supported                             | ✅ Supported                        |
-| [EncodedMotor][6]         | ✅ Supported                             | ❌ Not supported                    |
+| [EncodedMotor][6]         | ✅ Supported                             | ❌ Not yet supported                |
 | VisionSensor              | 💤 Not yet implemented                   | 💤 Not yet implemented              |
 
 [1]: https://clebert.github.io/powered-up/packages/api/classes/smartmovehub
