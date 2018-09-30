@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/clebert/powered-up/compare/v0.3.0...v0.4.0) (2018-09-30)
+
+
+### Features
+
+* **api:** a robot now finds the hub manager independently ([#56](https://github.com/clebert/powered-up/issues/56)) ([d4a5fd8](https://github.com/clebert/powered-up/commit/d4a5fd8))
+
+
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/clebert/powered-up/compare/v0.2.0...v0.3.0) (2018-09-30)
 
