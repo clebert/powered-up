@@ -10,6 +10,9 @@ sponsor, authorize or endorse this software._
 
 ## Getting started
 
+Please install the `@powered-up/api` package as described
+[here](https://clebert.github.io/powered-up/packages/api/).
+
 The following example sets the RGB light of a Smart Move Hub (included in the
 LEGO® Boost Set 17101) to red:
 
@@ -79,6 +82,10 @@ Powered Up hubs.
 A partial implementation of the LEGO® Powered Up
 [BLE](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy) protocol in
 JavaScript.
+
+## Related links
+
+- [Powered UP AFOL Community Answers](https://lan.lego.com/news/overview/powered-up-afol-community-answers-r146/)
 
 ---
 
