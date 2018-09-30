@@ -55,10 +55,10 @@ autorun(() => {
 | [CurrentSensor][4]        | ✅ Supported                             | ✅ Supported                        |
 | [RGBLight][5]             | ✅ Supported                             | ✅ Supported                        |
 | [InternalEncodedMotor][6] | ✅ Supported                             | ❌ N/A                              |
-| InternalTiltSensor        | 💤 Not yet implemented                   | ❌ N/A                              |
+| InternalTiltSensor        | ⚠️ [Not yet implemented][8]              | ❌ N/A                              |
 | [Motor][7]                | ✅ Supported                             | ✅ Supported                        |
-| [EncodedMotor][6]         | ✅ Supported                             | ❌ Not yet supported                |
-| VisionSensor              | 💤 Not yet implemented                   | 💤 Not yet implemented              |
+| [EncodedMotor][6]         | ✅ Supported                             | ⚠️ [Not yet implemented][10]        |
+| VisionSensor              | ⚠️ [Not yet implemented][9]              | ⚠️ [Not yet implemented][9]         |
 
 [1]: https://clebert.github.io/powered-up/packages/api/classes/smartmovehub
 [1-1]: https://clebert.github.io/powered-up/packages/api/classes/smartmoverobot
@@ -69,6 +69,9 @@ autorun(() => {
 [5]: https://clebert.github.io/powered-up/packages/api/classes/rgblight
 [6]: https://clebert.github.io/powered-up/packages/api/classes/encodedmotor
 [7]: https://clebert.github.io/powered-up/packages/api/classes/motor
+[8]: https://github.com/clebert/powered-up/issues/50
+[9]: https://github.com/clebert/powered-up/issues/49
+[10]: https://github.com/clebert/powered-up/issues/54
 
 ## Packages
 
