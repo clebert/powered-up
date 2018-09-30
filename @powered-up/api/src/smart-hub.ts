@@ -5,12 +5,8 @@ import {Port} from './port';
 const {A, B, RGBLight, CurrentSensor, VoltageSensor} = SmartHubPortType;
 
 /**
- * Smart Hub 2 I/O
- *
- * Part: 6253628
- * Design: 28738
- *
- * https://rebrickable.com/parts/6253628
+ * - Rebrickable: https://rebrickable.com/parts/6253628/
+ * - BrickLink: https://www.bricklink.com/v2/catalog/catalogitem.page?P=28738c01
  */
 export class SmartHub extends Hub {
   public static readonly hubType: number = 65;

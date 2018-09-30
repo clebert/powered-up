@@ -26,10 +26,10 @@ npm install @powered-up/ble
 
 ### Installation problems under Node 10 on macOS 10.13.4
 
-For the BLE connection [noble](https://github.com/noble/noble/issues/791) is
-used, it needs xpc-connection on macOS, which currently cannot be build without
-errors. Until the problem is officially fixed, the following must be added to
-your `package.json` file:
+[noble](https://github.com/noble/noble/issues/791) is used to establish the BLE
+connection, it requires xpc-connection on macOS, which currently cannot be
+installed without errors. Until the problem is officially fixed, the following
+must be added to your `package.json` file:
 
 ```json
 "resolutions": {

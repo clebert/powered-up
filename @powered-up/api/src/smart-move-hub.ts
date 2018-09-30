@@ -15,12 +15,8 @@ const {
 } = SmartMoveHubPortType;
 
 /**
- * Smart Move Hub 2 I/O
- *
- * Part: 6182144
- * Design: 26910
- *
- * https://rebrickable.com/parts/26910
+ * - Rebrickable: https://rebrickable.com/parts/26910/
+ * - BrickLink: https://www.bricklink.com/v2/catalog/catalogitem.page?P=26910c01
  */
 export class SmartMoveHub extends Hub {
   public static readonly hubType: number = 64;
