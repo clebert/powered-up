@@ -8,6 +8,34 @@
 _Disclaimer: LEGO® is a trademark of the LEGO Group of companies which does not
 sponsor, authorize or endorse this software._
 
+## Getting started
+
+The following example sets the RGB light of a Smart Move Hub (included in the
+LEGO® Boost Set 17101) to red:
+
+```js
+// @ts-check
+
+const {HubManager, SmartMoveRobot} = require('@powered-up/api');
+const {autorun} = require('mobx');
+
+const hubManager = HubManager.getSingleton();
+const moveRobot = new SmartMoveRobot(hubManager);
+
+autorun(() => {
+  const {rgbLight} = moveRobot;
+
+  if (!rgbLight) {
+    return;
+  }
+
+  rgbLight.setColor({red: 255, green: 0, blue: 0});
+});
+```
+
+**You can find some more examples in the
+[demo package](https://github.com/clebert/powered-up/tree/master/@powered-up/demo/src).**
+
 ## Implementation status
 
 |                           | [Smart Move Hub 2 I/O][1] | [Smart Hub 2 I/O][2]   |
