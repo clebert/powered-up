@@ -25,7 +25,7 @@
   "devDependencies": {
     "@commitlint/cli": "^7.2.0",
     "@commitlint/config-angular": "^7.1.2",
-    "@commitlint/travis-cli": "^7.1.2",
+    "@commitlint/travis-cli": "^7.2.0",
     "@types/jest": "^23.3.3",
     "@types/node": "^10.11.4",
     "autosrc": "^0.12.0",
