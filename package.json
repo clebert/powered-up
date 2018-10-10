@@ -26,7 +26,7 @@
     "@commitlint/cli": "^7.2.0",
     "@commitlint/config-angular": "^7.1.2",
     "@commitlint/travis-cli": "^7.2.0",
-    "@types/jest": "^23.3.4",
+    "@types/jest": "^23.3.5",
     "@types/node": "^10.11.6",
     "autosrc": "^0.12.0",
     "husky": "^1.1.1",
