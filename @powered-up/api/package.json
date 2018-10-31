@@ -22,6 +22,6 @@
   "dependencies": {
     "@powered-up/ble": "^0.4.0",
     "@powered-up/protocol": "^0.4.0",
-    "mobx": "^5.1.2"
+    "mobx": "^5.5.2"
   }
 }
