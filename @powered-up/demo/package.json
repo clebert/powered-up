@@ -5,6 +5,6 @@
   "license": "MIT",
   "dependencies": {
     "@powered-up/api": "^0.4.0",
-    "mobx": "^5.1.2"
+    "mobx": "^5.5.2"
   }
 }
