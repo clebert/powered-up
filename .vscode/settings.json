@@ -1,14 +1,5 @@
 {
   "editor.formatOnSave": true,
-  "files.exclude": {
-    "**/coverage/**": true,
-    "**/lerna-debug.log/**": true,
-    "**/lib/**": true,
-    "**/node_modules/**": true,
-    "**/npm-debug.log": true,
-    "**/yarn-error.log": true,
-    "**/yarn.lock": true
-  },
   "problems.decorations.enabled": false,
   "search.exclude": {
     "**/coverage/**": true,
